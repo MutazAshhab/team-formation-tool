@@ -12,6 +12,7 @@ export function DataTableSection() {
   const tableStore = useTableStore();
 
   if (!tableStore.data.length) return null;
+
   return (
     <>
       <Button
