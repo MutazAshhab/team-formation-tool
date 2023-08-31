@@ -1,7 +1,7 @@
 'use client';
 
 import { FileUploadButton } from '@/components/Buttons';
-import { DataTable } from '@/components/Table/DataTable';
+import { DataTableSection } from '@/components/Table/DataTableSection';
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <div>
         <h1>Upload CSV/Excel File</h1>
         <FileUploadButton />
-        <DataTable />
+        <DataTableSection />
       </div>
     </main>
   );
