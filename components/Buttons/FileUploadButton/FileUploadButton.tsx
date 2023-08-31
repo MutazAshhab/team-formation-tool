@@ -4,8 +4,6 @@ import { FileUploadLogic } from '@/logic/FileUploadLogic';
 import { useTableStore } from '@/zustand/useTableStore';
 import { ArrowUpTrayIcon } from '@heroicons/react/20/solid';
 
-import './FileUploadButton.css';
-
 export function FileUploadButton() {
   const tableStore = useTableStore();
 
@@ -19,17 +17,21 @@ export function FileUploadButton() {
       tableStore.setTable(data);
     }
   }
+
   return (
-    <div className="file-upload-container">
+    <div className="relative">
       <input
         type="file"
         id="file-upload"
-        className="file-upload-input"
+        className="hidden"
         onChange={handleFileUpload}
       />
-      <label htmlFor="file-upload" className="file-upload-label">
+      <label
+        htmlFor="file-upload"
+        className="inline-block px-6 py-3 bg-blue-500 text-white font-bold cursor-pointer rounded transition duration-200 hover:bg-blue-700"
+      >
         Upload File
-        <ArrowUpTrayIcon className="h-6" />
+        <ArrowUpTrayIcon className="h-6 w-6 ml-4 inline" aria-hidden="true" />
       </label>
     </div>
   );
