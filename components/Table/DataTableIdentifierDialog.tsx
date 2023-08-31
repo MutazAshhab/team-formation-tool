@@ -33,7 +33,7 @@ export function DataTableIdentifierDialog(
 
   return createPortal(
     <dialog className="fixed inset-0 flex items-center justify-center w-3/4">
-      <div className="bg-white p-8 rounded shadow-lg">
+      <div className="bg-white p-8 rounded shadow-lg w-full">
         <h2 className="text-lg mb-4">Identify Fields</h2>
         {headers.map((header, index) => (
           <div key={index} className="mb-4">
