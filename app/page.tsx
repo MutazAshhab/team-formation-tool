@@ -1,7 +1,6 @@
 'use client';
 
 import { FileUploadButton } from '@/components/Buttons';
-import { Button } from '@/components/Buttons/Button/Button';
 import { DataTable } from '@/components/Table/DataTable';
 
 export default function Home() {
