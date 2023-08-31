@@ -8,7 +8,6 @@ export const FileUploadLogic = {
 async function parseData(file: File) {
   const fileType = file.name.split('.').pop();
 
-  console.log({ fileType });
   switch (fileType) {
     case 'csv':
       return await parseCSV(file);
