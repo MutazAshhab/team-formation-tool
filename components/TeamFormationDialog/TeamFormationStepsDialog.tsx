@@ -37,10 +37,7 @@ export function TeamFormationStepsDialog() {
       show={teamFormationStore.showTeamFormationModal}
       closeModal={teamFormationStore.closeTeamFormationModal}
     >
-      <div className="w-auto h-max gap-3">
-        {view}
-        <button onClick={teamFormationStore.gotoNextView}>go to next</button>
-      </div>
+      {view}
     </DialogContainer>
   );
 }
