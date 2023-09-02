@@ -23,7 +23,7 @@ export function DialogHeader(props: DialogHeaderProps) {
   const iconStyling = isHovering ? { color: '#F04B23' } : {};
 
   return (
-    <div className="w-full h-max mb-2">
+    <div className="w-full h-max">
       <div className="flex justify-between items-center">
         <p className="text-2xl">{props.title}</p>
         <button
