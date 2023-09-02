@@ -10,7 +10,7 @@ interface ButtonProps {
 export function Button({ onClick, children, icon, iconPosition }: ButtonProps) {
   return (
     <button
-      className="border border-slate-400  text-black py-3 px-4 text-lg cursor-pointer transition duration-200 hover:bg-gray-100 hover:border-slate-600 rounded-lg"
+      className="border border-slate-400  text-black py-3 px-4 text-lg cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100 hover:border-slate-600 rounded-lg"
       onClick={onClick}
     >
       <div className="flex items-center">
