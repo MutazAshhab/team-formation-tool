@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import { PuzzlePieceIcon } from '@heroicons/react/24/outline';
@@ -23,7 +21,6 @@ export function DataTableSection() {
       >
         Form Teams
       </Button>
-
       <TeamFormationStepsDialog />
       <DataTable />
     </>
