@@ -5,11 +5,11 @@ import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore
 import { PuzzlePieceIcon } from '@heroicons/react/24/outline';
 
 import { Button } from '../Buttons';
+import { TeamFormationStepsDialog } from '../TeamFormationSteps/TeamFormationStepsDialog';
 import { DataTable } from './DataTable';
-import { DataTableIdentifierDialog } from './DataTableIdentifierDialog';
 
 export function DataTableSection() {
-  const teamFormationStepsStore = useTeamFormationStepsStore();
+  const { openTeamFormationModal } = useTeamFormationStepsStore();
   const tableStore = useTableStore();
 
   if (!tableStore.data.length) return null;
@@ -19,14 +19,12 @@ export function DataTableSection() {
       <Button
         icon={<PuzzlePieceIcon className="h-6 w-6 inline" />}
         iconPosition="right"
-        onClick={teamFormationStepsStore.openTeamFormationModal}
+        onClick={openTeamFormationModal}
       >
         Form Teams
       </Button>
-      <DataTableIdentifierDialog
-        show={teamFormationStepsStore.showTeamFormationModal}
-        closeModal={teamFormationStepsStore.closeTeamFormationModal}
-      />
+
+      <TeamFormationStepsDialog />
       <DataTable />
     </>
   );
