@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 interface DialogContainerProps {
@@ -7,6 +8,20 @@ interface DialogContainerProps {
 }
 
 export function DialogContainer(props: DialogContainerProps) {
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        props.closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  });
+
   if (!props.show) {
     return null;
   }
