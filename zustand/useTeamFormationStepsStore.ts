@@ -20,8 +20,10 @@ type ViewNames = (typeof views)[keyof typeof views];
 
 type TeamFormationStepsStore = {
   view: ViewNames;
+  viewHistory: ViewNames[];
   gotoNextView: () => void;
   gotoView: (viewName: ViewNames) => void;
+  goToPreviousView: () => void;
   showTeamFormationModal: boolean;
   closeTeamFormationModal: () => void;
   openTeamFormationModal: () => void;
@@ -30,41 +32,68 @@ type TeamFormationStepsStore = {
 export const useTeamFormationStepsStore = create<TeamFormationStepsStore>(
   set => ({
     view: views.explainer,
+    viewHistory: [views.explainer],
     gotoNextView: () => {
       set(state => {
+        let nextView: ViewNames = views.developerError;
+
         switch (state.view) {
           case views.explainer:
-            return {
-              // We cannot decide where the user will go after the explainer, use the gotoView, along side the option the user requests.
-              view: views.developerError,
-            };
+            // We cannot decide where the user will go after the explainer, use the gotoView, along side the option the user requests.
+            nextView = views.developerError;
+            break;
           case views.defaultAlgorithmExplainer:
-            return {
-              view: views.defaultAlgorithmMapping,
-            };
+            nextView = views.defaultAlgorithmMapping;
+            break;
           case views.defaultAlgorithmMapping:
-            return {
-              view: views.complete,
-            };
+            nextView = views.complete;
+            break;
           case views.customAlgorithmExplainer:
-            return {
-              view: views.customAlgorithmMapping,
-            };
+            nextView = views.customAlgorithmMapping;
+            break;
           case views.customAlgorithmMapping:
-            return {
-              view: views.complete,
-            };
+            nextView = views.complete;
+            break;
         }
 
-        return { view: views.developerError };
+        state.viewHistory = [...state.viewHistory, nextView];
+        return { view: nextView };
       });
     },
     gotoView: (viewName: ViewNames) => {
-      set({ view: viewName });
+      set(state => {
+        return {
+          view: viewName,
+          viewHistory: [...state.viewHistory, viewName],
+        };
+      });
+    },
+    goToPreviousView: () => {
+      set(state => {
+        if (state.viewHistory.length <= 1) {
+          return {
+            showTeamFormationModal: false,
+            view: views.explainer,
+            viewHistory: [views.explainer],
+          };
+        }
+
+        const viewHistory = [...state.viewHistory];
+        viewHistory.pop();
+
+        return {
+          view: viewHistory[viewHistory.length - 1],
+          viewHistory,
+        };
+      });
     },
     showTeamFormationModal: false,
     closeTeamFormationModal: () => {
-      set({ showTeamFormationModal: false, view: views.explainer });
+      set({
+        showTeamFormationModal: false,
+        view: views.explainer,
+        viewHistory: [views.explainer],
+      });
     },
     openTeamFormationModal: () => {
       set({ showTeamFormationModal: true });
