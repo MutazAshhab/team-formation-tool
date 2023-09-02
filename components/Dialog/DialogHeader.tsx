@@ -8,7 +8,7 @@ interface DialogHeaderProps {
 
 export function DialogHeader(props: DialogHeaderProps) {
   return (
-    <div className="w-full h-max">
+    <div className="w-full h-max mb-2">
       <div className="flex justify-between items-center">
         <p className="text-2xl">{props.title}</p>
         <button onClick={props.closeModal}>
