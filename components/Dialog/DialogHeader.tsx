@@ -11,7 +11,9 @@ export function DialogHeader(props: DialogHeaderProps) {
     <div className="w-full h-max">
       <div className="flex justify-between items-center">
         <p className="text-2xl">{props.title}</p>
-        <XMarkIcon className="h-6 w-6" onClick={props.closeModal} />
+        <button onClick={props.closeModal}>
+          <XMarkIcon className="h-6 w-6" />
+        </button>
       </div>
     </div>
   );
