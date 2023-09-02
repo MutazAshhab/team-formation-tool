@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useTableStore } from '@/zustand/useTableStore';
-import { PencilSquareIcon } from '@heroicons/react/20/solid';
+import { PuzzlePieceIcon } from '@heroicons/react/24/outline';
 
 import { Button } from '../Buttons';
 import { DataTable } from './DataTable';
@@ -16,11 +16,11 @@ export function DataTableSection() {
   return (
     <>
       <Button
-        icon={<PencilSquareIcon className="h-6 w-6 inline" />}
+        icon={<PuzzlePieceIcon className="h-6 w-6 inline" />}
         iconPosition="right"
         onClick={() => setShowEditHeadersDialog(true)}
       >
-        Update Data Headers
+        Form Teams
       </Button>
       <DataTableIdentifierDialog
         show={showEditHeadersDialog}
