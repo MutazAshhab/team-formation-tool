@@ -1,4 +1,5 @@
 import { DialogContent } from '@/components/Dialog/DialogContent';
+import { DialogFooter } from '@/components/Dialog/DialogFooter';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
@@ -28,6 +29,7 @@ export function DeveloperError() {
           </p>
         </div>
       </DialogContent>
+      <DialogFooter onNextClick={() => {}} />
     </>
   );
 }
