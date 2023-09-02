@@ -28,7 +28,7 @@ export function DialogHeader(props: DialogHeaderProps) {
         <p className="text-2xl">{props.title}</p>
         <button
           onClick={props.closeModal}
-          className="transition duration-300 ease-in-out  rounded-3xl p-1"
+          className="transition duration-300 ease-in-out rounded-3xl p-1"
           style={buttonStyling}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
