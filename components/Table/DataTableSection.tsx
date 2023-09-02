@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useTableStore } from '@/zustand/useTableStore';
+import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import { PuzzlePieceIcon } from '@heroicons/react/24/outline';
 
 import { Button } from '../Buttons';
@@ -8,7 +9,7 @@ import { DataTable } from './DataTable';
 import { DataTableIdentifierDialog } from './DataTableIdentifierDialog';
 
 export function DataTableSection() {
-  const [showEditHeadersDialog, setShowEditHeadersDialog] = useState(false);
+  const teamFormationStepsStore = useTeamFormationStepsStore();
   const tableStore = useTableStore();
 
   if (!tableStore.data.length) return null;
@@ -18,13 +19,13 @@ export function DataTableSection() {
       <Button
         icon={<PuzzlePieceIcon className="h-6 w-6 inline" />}
         iconPosition="right"
-        onClick={() => setShowEditHeadersDialog(true)}
+        onClick={teamFormationStepsStore.openTeamFormationModal}
       >
         Form Teams
       </Button>
       <DataTableIdentifierDialog
-        show={showEditHeadersDialog}
-        closeModal={() => setShowEditHeadersDialog(false)}
+        show={teamFormationStepsStore.showTeamFormationModal}
+        closeModal={teamFormationStepsStore.closeTeamFormationModal}
       />
       <DataTable />
     </>
