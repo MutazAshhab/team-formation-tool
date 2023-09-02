@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-const views = {
+export const views = {
   explainer: 'explainer', // First page
 
   // Default algorithm
