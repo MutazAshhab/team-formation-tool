@@ -12,9 +12,7 @@ export function DefaultAlgorithmMapping() {
         closeModal={teamFormationStore.closeTeamFormationModal}
         title="DefaultAlgorithmMapping"
       />
-      <TeamFormationStepsDialogFooternStepsDialogFooter
-        onNextClick={() => {}}
-      />
+      <TeamFormationStepsDialogFooter onNextClick={() => {}} />
     </>
   );
 }
