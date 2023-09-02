@@ -9,13 +9,13 @@ export function DataTable() {
   const rows = tableStore.data.slice(1);
 
   return (
-    <table className="min-w-full bg-white border border-gray-300">
+    <table className="min-w-full bg-white border border-gray-300 text-left ">
       <thead className="bg-gray-100">
         <tr>
           {headers.map((header, index) => (
             <th
+              className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider"
               key={index}
-              className="py-2 px-4 border-b border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider"
             >
               {header}
             </th>
