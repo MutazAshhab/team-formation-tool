@@ -1,15 +1,21 @@
 import { Button } from '@/components/Buttons';
 import { DialogFooter } from '@/components/Dialog/DialogFooter';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
-import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
-
-import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
+import {
+  useTeamFormationStepsStore,
+  views,
+} from '@/zustand/useTeamFormationStepsStore';
 
 export function Explainer() {
   const teamFormationStore = useTeamFormationStepsStore();
 
-  function handleDefaultAlgorithmClick() {}
-  function handleCustomAlgorithmClick() {}
+  function handleDefaultAlgorithmClick() {
+    teamFormationStore.gotoView(views.defaultAlgorithmExplainer);
+  }
+
+  function handleCustomAlgorithmClick() {
+    teamFormationStore.gotoView(views.customAlgorithmExplainer);
+  }
 
   return (
     <>
