@@ -12,7 +12,9 @@ export function DefaultAlgorithmExplainer() {
         closeModal={teamFormationStore.closeTeamFormationModal}
         title="DefaultAlgorithmExplainer"
       />
-      <TeamFormationStepsDialogFooter onNextClick={() => {}} />
+      <TeamFormationStepsDialogFooter
+        onNextClick={teamFormationStore.gotoNextView}
+      />
     </>
   );
 }
