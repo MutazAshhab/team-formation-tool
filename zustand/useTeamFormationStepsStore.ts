@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { useAlgorithmStore } from './useAlgorithmStore';
+
 export const views = {
   explainer: 'explainer', // First page
 
@@ -71,6 +73,9 @@ export const useTeamFormationStepsStore = create<TeamFormationStepsStore>(
     goToPreviousView: () => {
       set(state => {
         if (state.viewHistory.length <= 1) {
+          // Reset the algorithm store first
+          const algorithmStore = useAlgorithmStore.getState();
+          algorithmStore.reset();
           return {
             showTeamFormationModal: false,
             view: views.explainer,
@@ -89,6 +94,10 @@ export const useTeamFormationStepsStore = create<TeamFormationStepsStore>(
     },
     showTeamFormationModal: false,
     closeTeamFormationModal: () => {
+      // Reset the algorithm store first
+      const algorithmStore = useAlgorithmStore.getState();
+      algorithmStore.reset();
+
       set({
         showTeamFormationModal: false,
         view: views.explainer,
