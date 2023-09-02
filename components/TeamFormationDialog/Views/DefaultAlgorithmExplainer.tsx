@@ -1,6 +1,7 @@
-import { DialogFooter } from '@/components/Dialog/DialogFooter';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
+
+import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
 
 export function DefaultAlgorithmExplainer() {
   const teamFormationStore = useTeamFormationStepsStore();
@@ -11,7 +12,7 @@ export function DefaultAlgorithmExplainer() {
         closeModal={teamFormationStore.closeTeamFormationModal}
         title="DefaultAlgorithmExplainer"
       />
-      <DialogFooter onNextClick={() => {}} />
+      <TeamFormationStepsDialogFooter onNextClick={() => {}} />
     </>
   );
 }
