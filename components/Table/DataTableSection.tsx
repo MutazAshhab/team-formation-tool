@@ -3,7 +3,7 @@ import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore
 import { PuzzlePieceIcon } from '@heroicons/react/24/outline';
 
 import { Button } from '../Buttons';
-import { TeamFormationStepsDialog } from '../TeamFormationSteps/TeamFormationStepsDialog';
+import { TeamFormationStepsDialog } from '../TeamFormationDialog/TeamFormationStepsDialog';
 import { DataTable } from './DataTable';
 
 export function DataTableSection() {
