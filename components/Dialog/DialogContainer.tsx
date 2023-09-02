@@ -28,7 +28,7 @@ export function DialogContainer(props: DialogContainerProps) {
 
   return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <dialog className="flex flex-col items-stretch justify-center w-3/4 rounded bg-white p-4">
+      <dialog className="flex flex-col items-stretch justify-center sm:w-[500px] lg:w-[640px] rounded bg-white p-4">
         {props.children}
       </dialog>
     </div>,
