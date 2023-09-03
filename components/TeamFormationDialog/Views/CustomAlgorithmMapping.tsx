@@ -12,7 +12,9 @@ export function CustomAlgorithmMapping() {
         closeModal={teamFormationStore.closeTeamFormationModal}
         title="CustomAlgorithmMapping"
       />
-      <TeamFormationStepsDialogFooter onNextClick={() => {}} />
+      <TeamFormationStepsDialogFooter
+        onNextClick={teamFormationStore.gotoNextView}
+      />
     </>
   );
 }
