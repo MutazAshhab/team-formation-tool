@@ -10,21 +10,24 @@ export function AlertBox(props: AlertBoxProps) {
     switch (props.variant) {
       case 'info':
         return {
-          background: 'bg-yellow-100',
-          icon: 'text-yellow-700',
+          background: 'rgb(254 249 195)',
+          icon: 'rgb(161 98 7)',
         };
       case 'error':
         return {
-          background: 'bg-red-100',
-          icon: 'text-red-700',
+          background: '#FDEFEC',
+          icon: '#F04B23',
         };
     }
   })();
   return (
-    <div className={`p-4 rounded ${colors.background}`}>
+    <div
+      className={'p-4 rounded'}
+      style={{ backgroundColor: colors.background }}
+    >
       <div className="flex items-center">
         <div className="mr-4">
-          <ExclamationTriangleIcon className={`h-6 w-6 ${colors.icon}`} />
+          <ExclamationTriangleIcon className={'h-6 w-6'} color={colors.icon} />
         </div>
         <div>{props.children}</div>
       </div>
