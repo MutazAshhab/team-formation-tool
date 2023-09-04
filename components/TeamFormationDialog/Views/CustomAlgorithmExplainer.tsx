@@ -1,4 +1,4 @@
-import { InfoAlertBox } from '@/components/AlertBoxes/InfoAlertBox';
+import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
@@ -15,7 +15,7 @@ export function CustomAlgorithmExplainer() {
         title="How to Customize Your Team Formation"
       />
       <DialogContent>
-        <InfoAlertBox>
+        <AlertBox variant="info">
           Want more control over your teams? Our custom algorithm lets you
           tailor the team formation to your specific needs. You can select which
           data columns to use and apply your own constraints. Whether you want
@@ -26,7 +26,7 @@ export function CustomAlgorithmExplainer() {
           <br />
           Just match the data columns to your desired factors, add any extra
           rules, and let the algorithm create the perfect teams for you!
-        </InfoAlertBox>
+        </AlertBox>
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={teamFormationStore.gotoNextView}

@@ -1,4 +1,4 @@
-import { InfoAlertBox } from '@/components/AlertBoxes/InfoAlertBox';
+import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
@@ -15,7 +15,7 @@ export function DefaultAlgorithmExplainer() {
         title="Using the Default Algorithm"
       />
       <DialogContent>
-        <InfoAlertBox>
+        <AlertBox variant="info">
           Our default algorithm aims to create balanced and diverse teams for
           you. It ensures that each team has a mix of genders, language
           backgrounds, and academic performance levels. The algorithm also takes
@@ -25,7 +25,7 @@ export function DefaultAlgorithmExplainer() {
           <br />
           In the next step, you will be asked to match the data columns to the
           factors, and let the algorithm do the work!
-        </InfoAlertBox>
+        </AlertBox>
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={teamFormationStore.gotoNextView}
