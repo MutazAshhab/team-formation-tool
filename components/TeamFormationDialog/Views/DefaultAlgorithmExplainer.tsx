@@ -12,7 +12,7 @@ export function DefaultAlgorithmExplainer() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="DefaultAlgorithmExplainer"
+        title="Using the Default Algorithm"
       />
       <DialogContent>
         <InfoAlertBox>

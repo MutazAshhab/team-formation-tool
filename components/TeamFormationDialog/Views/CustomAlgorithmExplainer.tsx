@@ -12,7 +12,7 @@ export function CustomAlgorithmExplainer() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="CustomAlgorithmExplainer"
+        title="How to Customize Your Team Formation"
       />
       <DialogContent>
         <InfoAlertBox>

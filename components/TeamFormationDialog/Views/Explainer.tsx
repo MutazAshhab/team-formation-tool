@@ -21,7 +21,7 @@ export function Explainer() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Explainer"
+        title="About the Team Formation Tool"
       />
       <DialogFooter>
         <div className="flex justify-around items-center">
