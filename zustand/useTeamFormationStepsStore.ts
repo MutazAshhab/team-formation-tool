@@ -72,19 +72,14 @@ export const useTeamFormationStepsStore = create<TeamFormationStepsStore>(
     },
     goToPreviousView: () => {
       set(state => {
-        if (state.viewHistory.length <= 1) {
-          // Reset the algorithm store first
-          const algorithmStore = useAlgorithmStore.getState();
-          algorithmStore.reset();
-          return {
-            showTeamFormationModal: false,
-            view: views.explainer,
-            viewHistory: [views.explainer],
-          };
-        }
-
         const viewHistory = [...state.viewHistory];
         viewHistory.pop();
+
+        if (viewHistory.length == 1) {
+          // Reset the algorithm store
+          const algorithmStore = useAlgorithmStore.getState();
+          algorithmStore.reset();
+        }
 
         return {
           view: viewHistory[viewHistory.length - 1],
