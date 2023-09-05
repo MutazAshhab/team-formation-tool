@@ -11,6 +11,10 @@ import { TeamSizeInput } from '../TeamSizeInput';
 export function DefaultAlgorithmMapping() {
   const teamFormationStore = useTeamFormationStepsStore();
   const tableStore = useTableStore();
+  const algorithmStore = useAlgorithmStore();
+
+  algorithmStore.setTeamSize(5);
+  algorithmStore.setChosenAlgorithm('default');
 
   const headers = tableStore.data[0];
 
@@ -42,9 +46,9 @@ export function DefaultAlgorithmMapping() {
         title="DefaultAlgorithmMapping"
       />
       <DialogContent className="flex flex-col gap-4">
-        <TeamSizeInput />
-        {headers.map(col => (
-          <div key={col} className="p-2 border border-gray-300 rounded-lg">
+        <AlertBox variant="info">
+          For the default algorithm, each team will have 5 team members
+        </AlertBox>
             <label className="block text-md font-medium text-gray-700">
               {col}
             </label>
