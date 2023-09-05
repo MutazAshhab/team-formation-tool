@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
+import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
+import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
@@ -32,11 +34,11 @@ export function DefaultAlgorithmMapping() {
   };
 
   const options = [
-    'Gender',
-    'First Language',
-    'WAM',
-    'Anxiety',
-    'Agreeableness',
+    { label: 'Gender', key: 'gender' },
+    { label: 'First Language', key: 'first_language' },
+    { label: 'WAM', key: 'wam' },
+    { label: 'Anxiety', key: 'anxiety' },
+    { label: 'Agreeableness', key: 'agreeableness' },
   ];
 
   return (
@@ -49,12 +51,14 @@ export function DefaultAlgorithmMapping() {
         <AlertBox variant="info">
           For the default algorithm, each team will have 5 team members
         </AlertBox>
+        {headers.map(header => (
+          <div key={header} className="p-2 border border-gray-300 rounded-lg">
             <label className="block text-md font-medium text-gray-700">
-              {col}
+              {header}
             </label>
             <select
-              value={mapping[col] || ''}
-              onChange={e => handleSelectChange(col, e.target.value)}
+              value={mapping[header] || ''}
+              onChange={e => handleSelectChange(header, e.target.value)}
               className="mt-2 w-full p-3 border border-gray-300 rounded-lg"
             >
               <option value="" className="text-gray-400">
@@ -62,11 +66,17 @@ export function DefaultAlgorithmMapping() {
               </option>
               {options
                 .filter(
-                  opt => !selectedOptions.includes(opt) || mapping[col] === opt,
+                  opt =>
+                    !selectedOptions.includes(opt.label) ||
+                    mapping[header] === opt.label,
                 )
                 .map(opt => (
-                  <option key={opt} value={opt} className="text-black">
-                    {opt}
+                  <option
+                    key={opt.label}
+                    value={opt.label}
+                    className="text-black"
+                  >
+                    {opt.label}
                   </option>
                 ))}
             </select>
