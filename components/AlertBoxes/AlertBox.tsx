@@ -22,7 +22,7 @@ export function AlertBox(props: AlertBoxProps) {
   })();
   return (
     <div
-      className={'p-4 rounded'}
+      className={'p-4 rounded-xl'}
       style={{ backgroundColor: colors.background }}
     >
       <div className="flex items-center">
