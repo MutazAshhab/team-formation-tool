@@ -28,8 +28,11 @@ export function DefaultAlgorithmMapping() {
 
     // Update the list of selected options
     const prevValue = mapping[col];
-    setSelectedOptions(prevSelected =>
-      prevSelected.filter(opt => opt !== prevValue).concat(value),
+    setSelectedOptions(
+      prevSelected =>
+        prevSelected
+          .filter(opt => opt !== prevValue)
+          .concat(value !== '' ? value : []), // this removes the value if it is an empty string
     );
   };
 
