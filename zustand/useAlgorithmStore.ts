@@ -6,11 +6,11 @@ interface Mapping {
   columnName: string;
 }
 
-interface DefaultMapping extends Mapping {
+export interface DefaultMapping extends Mapping {
   optionName: string;
 }
 
-interface CustomMapping extends Mapping {
+export interface CustomMapping extends Mapping {
   constraint: string; // String for now
 }
 
