@@ -15,6 +15,10 @@ export function DefaultAlgorithmMapping() {
   const tableStore = useTableStore();
   const algorithmStore = useAlgorithmStore();
 
+  // Component state
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [mapping, setMapping] = useState<Record<string, string>>({});
+
   // We only want to set it once, placing it outside of a useEffect will cause it to be set every time the component is rendered then trigger a render again causing an infinite render loop
   useEffect(() => {
     algorithmStore.setTeamSize(5);
@@ -22,25 +26,27 @@ export function DefaultAlgorithmMapping() {
 
     if (algorithmStore.mapping.length > 0) {
       const jsonObject: Record<string, string> = {};
+      const selectedArray: string[] = [];
       const defaultMapping = algorithmStore.mapping as DefaultMapping[];
 
       defaultMapping.forEach(mapping => {
         const option = options.find(opt => opt.key === mapping.optionName);
         if (option) {
           jsonObject[mapping.columnName] = option.label;
+          selectedArray.push(option.label);
         }
       });
 
+      setSelectedOptions(selectedArray);
       setMapping(jsonObject);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const headers = tableStore.data[0];
+  console.log({ selectedOptions, mapping });
 
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [mapping, setMapping] = useState<Record<string, string>>({});
+  const headers = tableStore.data[0];
 
   const handleSelectChange = (col: string, value: string) => {
     setMapping({ ...mapping, [col]: value });
