@@ -84,7 +84,27 @@ export function DefaultAlgorithmMapping() {
         ))}
       </DialogContent>
       <TeamFormationStepsDialogFooter
-        onNextClick={teamFormationStore.gotoNextView}
+        onNextClick={() => {
+          const areAllOptionsAssigned =
+            options.length === selectedOptions.length;
+
+          if (!areAllOptionsAssigned) {
+            return;
+          }
+
+          // Convert the mapping to an `DefaultMapping` array
+          const defaultMapping = Object.keys(mapping).map(key => {
+            const option = options.find(opt => opt.label === mapping[key]);
+            return {
+              columnName: key,
+              optionName: option ? option.key : 'undefined',
+            };
+          });
+
+          algorithmStore.setMapping(defaultMapping);
+
+          teamFormationStore.gotoNextView();
+        }}
       />
     </>
   );
