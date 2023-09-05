@@ -34,7 +34,7 @@ export const useAlgorithmStore = create<AlgorithmStore>(set => ({
     set({ teamSize: size });
   },
   reset: () => {
-    set({ chosenAlgorithm: null, teamSize: null });
+    set({ chosenAlgorithm: null, teamSize: null, mapping: [] });
   },
   mapping: [],
   setMapping: (mapping: (DefaultMapping | CustomMapping)[]) => {
