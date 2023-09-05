@@ -23,7 +23,11 @@ export function DefaultAlgorithmMapping() {
   useEffect(() => {
     algorithmStore.setTeamSize(5);
     algorithmStore.setChosenAlgorithm('default');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  // Update component state when
+  useEffect(() => {
     if (algorithmStore.mapping.length > 0) {
       const jsonObject: Record<string, string> = {};
       const selectedArray: string[] = [];
@@ -40,7 +44,6 @@ export function DefaultAlgorithmMapping() {
       setSelectedOptions(selectedArray);
       setMapping(jsonObject);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
