@@ -19,9 +19,9 @@ type AlgorithmStore = {
   setChosenAlgorithm: (option: AlgorithmOptions) => void;
   teamSize: number | null;
   setTeamSize: (size: number) => void;
-  reset: () => void;
   mapping: (DefaultMapping | CustomMapping)[];
   setMapping: (mapping: (DefaultMapping | CustomMapping)[]) => void;
+  reset: () => void;
 };
 
 export const useAlgorithmStore = create<AlgorithmStore>(set => ({
@@ -33,11 +33,11 @@ export const useAlgorithmStore = create<AlgorithmStore>(set => ({
   setTeamSize: (size: number) => {
     set({ teamSize: size });
   },
-  reset: () => {
-    set({ chosenAlgorithm: null, teamSize: null, mapping: [] });
-  },
   mapping: [],
   setMapping: (mapping: (DefaultMapping | CustomMapping)[]) => {
     set({ mapping });
+  },
+  reset: () => {
+    set({ chosenAlgorithm: null, teamSize: null, mapping: [] });
   },
 }));
