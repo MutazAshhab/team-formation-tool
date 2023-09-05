@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
@@ -15,8 +15,12 @@ export function DefaultAlgorithmMapping() {
   const tableStore = useTableStore();
   const algorithmStore = useAlgorithmStore();
 
-  algorithmStore.setTeamSize(5);
-  algorithmStore.setChosenAlgorithm('default');
+  // We only want to set it once, placing it outside of a useEffect will cause it to be set every time the component is rendered then trigger a render again causing an infinite render loop
+  useEffect(() => {
+    algorithmStore.setTeamSize(5);
+    algorithmStore.setChosenAlgorithm('default');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const headers = tableStore.data[0];
 
