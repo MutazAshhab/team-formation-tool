@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
-import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
+import { DefaultMapping, useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
@@ -19,6 +19,21 @@ export function DefaultAlgorithmMapping() {
   useEffect(() => {
     algorithmStore.setTeamSize(5);
     algorithmStore.setChosenAlgorithm('default');
+
+    if (algorithmStore.mapping.length > 0) {
+      const jsonObject: Record<string, string> = {};
+      const defaultMapping = algorithmStore.mapping as DefaultMapping[];
+
+      defaultMapping.forEach(mapping => {
+        const option = options.find(opt => opt.key === mapping.optionName);
+        if (option) {
+          jsonObject[mapping.columnName] = option.label;
+        }
+      });
+
+      setMapping(jsonObject);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
