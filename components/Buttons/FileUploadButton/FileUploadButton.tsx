@@ -22,7 +22,7 @@ export function FileUploadButton() {
     <div className="mt-14">
       <label
         htmlFor="file-upload"
-        className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded"
+        className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded duration-300 ease-in-out hover:bg-blue-700"
       >
         Choose a file
         <ArrowUpTrayIcon className="h-5 w-5 ml-2 inline" aria-hidden="true" />
