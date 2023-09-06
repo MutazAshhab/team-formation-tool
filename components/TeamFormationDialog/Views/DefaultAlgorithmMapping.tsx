@@ -8,7 +8,6 @@ import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
 import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
-import { TeamSizeInput } from '../TeamSizeInput';
 
 export function DefaultAlgorithmMapping() {
   const teamFormationStore = useTeamFormationStepsStore();
