@@ -5,10 +5,9 @@ import { DataTableSection } from '@/components/Table/DataTableSection';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <h1>Upload CSV/Excel File</h1>
-        <FileUploadButton />
+    <main className="flex h-full flex-col items-center gap-5">
+      <FileUploadButton />
+      <div className="flex flex-col gap-5">
         <DataTableSection />
       </div>
     </main>
