@@ -46,8 +46,6 @@ export function DefaultAlgorithmMapping() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log({ selectedOptions, mapping });
-
   const headers = tableStore.data[0];
 
   const handleSelectChange = (col: string, value: string) => {
