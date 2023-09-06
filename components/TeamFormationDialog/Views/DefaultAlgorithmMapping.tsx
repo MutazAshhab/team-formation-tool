@@ -79,37 +79,44 @@ export function DefaultAlgorithmMapping() {
         <AlertBox variant="info">
           For the default algorithm, each team will have 5 team members
         </AlertBox>
-        {headers.map(header => (
-          <div key={header} className="p-2 border border-gray-300 rounded-lg">
-            <label className="block text-md font-medium text-gray-700">
-              {header}
-            </label>
-            <select
-              value={mapping[header] || ''}
-              onChange={e => handleSelectChange(header, e.target.value)}
-              className="mt-2 w-full p-3 border border-gray-300 rounded-lg"
+        <div className="overflow-auto border rounded-lg flex flex-col gap-4 items-center py-2">
+          {headers.map(header => (
+            <div
+              key={header}
+              className="p-2 border border-gray-300 rounded-lg w-[96%]"
             >
-              <option value="" className="text-gray-400">
-                Select an option
-              </option>
-              {options
-                .filter(
-                  opt =>
-                    !selectedOptions.includes(opt.label) ||
-                    mapping[header] === opt.label,
-                )
-                .map(opt => (
-                  <option
-                    key={opt.label}
-                    value={opt.label}
-                    className="text-black"
-                  >
-                    {opt.label}
-                  </option>
-                ))}
-            </select>
-          </div>
-        ))}
+              <label className="block text-md font-medium text-gray-700">
+                {header}
+              </label>
+              <select
+                value={mapping[header] || ''}
+                onChange={e => handleSelectChange(header, e.target.value)}
+                className="mt-2 w-full p-3 border border-gray-300 rounded-lg"
+              >
+                <option value="" className="text-gray-400">
+                  Select an option
+                </option>
+                {options
+                  .filter(
+                    opt =>
+                      !selectedOptions.includes(opt.label) ||
+                      mapping[header] === opt.label,
+                  )
+                  .map(opt => (
+                    <option
+                      key={opt.label}
+                      value={opt.label}
+                      className="text-black"
+                    >
+                      {opt.label}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          ))}
+        </div>
+        {/* place a thingy here which tells the user what maps to what, in a nice UI, could also show them an error message here */}
+        {/* <div></div> */}
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={() => {
