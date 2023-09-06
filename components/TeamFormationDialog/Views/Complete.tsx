@@ -12,7 +12,7 @@ export function Complete() {
   const tableStore = useTableStore();
 
   async function postDefaultAlgorithm() {
-    const data = await axios.post('localhost:8000/default_algorithm', {
+    const data = await axios.post('http://127.0.0.1:8000/default_algorithm', {
       mapping: algorithmStore.mapping,
       csv_file: tableStore.data,
     });
