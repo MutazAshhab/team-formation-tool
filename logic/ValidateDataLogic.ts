@@ -4,6 +4,7 @@ import addFormats from 'ajv-formats';
 export const ValidateDataLogic = { validateData };
 
 const ajvInstance = new Ajv({ allErrors: true });
+
 addFormats(ajvInstance);
 
 const schema = {
