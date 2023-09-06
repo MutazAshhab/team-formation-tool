@@ -19,20 +19,21 @@ export function FileUploadButton() {
   }
 
   return (
-    <div className="relative">
-      <input
-        type="file"
-        id="file-upload"
-        className="hidden"
-        onChange={handleFileUpload}
-      />
+    <div className="mt-14">
       <label
         htmlFor="file-upload"
-        className="inline-block px-6 py-3 bg-blue-500 text-white font-bold cursor-pointer rounded transition duration-200 hover:bg-blue-700"
+        className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded"
       >
-        Upload File
-        <ArrowUpTrayIcon className="h-6 w-6 ml-4 inline" aria-hidden="true" />
+        Choose a file
+        <ArrowUpTrayIcon className="h-5 w-5 ml-2 inline" aria-hidden="true" />
       </label>
+      <input
+        id="file-upload"
+        type="file"
+        className="hidden"
+        accept=".csv, .xls, .xlsx"
+        onChange={handleFileUpload}
+      />
     </div>
   );
 }
