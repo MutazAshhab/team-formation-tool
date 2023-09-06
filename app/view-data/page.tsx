@@ -2,11 +2,16 @@
 
 import { useEffect } from 'react';
 
+import { Button } from '@/components/Buttons';
 import { DataTable } from '@/components/Table/DataTable';
+import { TeamFormationStepsDialog } from '@/components/TeamFormationDialog/TeamFormationStepsDialog';
 import { useTableStore } from '@/zustand/useTableStore';
+import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
+import { PuzzlePieceIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 
 export default function ViewCSVPage() {
+  const { openTeamFormationModal } = useTeamFormationStepsStore();
   const tableStore = useTableStore();
   const router = useRouter();
 
@@ -25,12 +30,22 @@ export default function ViewCSVPage() {
             View Uploaded CSV Data
           </h1>
 
+          <Button
+            className="mb-4"
+            icon={<PuzzlePieceIcon className="h-6 w-6 inline" />}
+            iconPosition="right"
+            onClick={openTeamFormationModal}
+          >
+            Form Teams
+          </Button>
+
           {/* Data Table Section */}
           <div className="bg-gray-100 p-4 rounded overflow-x-auto">
             <DataTable />
           </div>
         </div>
       </div>
+      <TeamFormationStepsDialog />
     </div>
   );
 }
