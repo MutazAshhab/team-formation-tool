@@ -7,16 +7,21 @@ interface ButtonProps {
   iconPosition?: 'left' | 'right';
 }
 
-export function Button({ onClick, children, icon, iconPosition }: ButtonProps) {
+export function Button({
+  onClick,
+  children,
+  icon = undefined,
+  iconPosition,
+}: ButtonProps) {
   return (
     <button
-      className="border border-slate-400  text-black py-3 px-4 text-lg cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100 hover:border-slate-600 rounded-lg"
+      className="inline-flex align-self-start max-w-fit"
       onClick={onClick}
     >
-      <div className="flex items-center">
-        {iconPosition === 'left' && icon && <div className="mr-2">{icon}</div>}
-        <div>{children}</div>
-        {iconPosition === 'right' && icon && <div className="ml-2">{icon}</div>}
+      <div className="flex flex-row gap-2 border border-slate-400 text-black py-3 px-4 text-lg transition duration-300 ease-in-out hover:bg-gray-100 hover:border-slate-600 rounded-lg">
+        {iconPosition === 'left' && icon}
+        {children}
+        {iconPosition === 'right' && icon}
       </div>
     </button>
   );
