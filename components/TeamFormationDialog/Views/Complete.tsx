@@ -1,12 +1,26 @@
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
+import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
+import axios from 'axios';
 
 import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
 
 export function Complete() {
   const teamFormationStore = useTeamFormationStepsStore();
   const algorithmStore = useAlgorithmStore();
+  const tableStore = useTableStore();
+
+  async function postDefaultAlgorithm() {
+    const data = await axios.post('localhost:8000/default_algorithm', {
+      mapping: algorithmStore.mapping,
+      csv_file: tableStore.data,
+    });
+
+    console.log({ data });
+  }
+
+  async function postCustomAlgorithm() {}
 
   return (
     <>
@@ -16,7 +30,11 @@ export function Complete() {
       />
       <TeamFormationStepsDialogFooter
         onNextClick={() => {
-          console.log(algorithmStore);
+          if (algorithmStore.chosenAlgorithm === 'default') {
+            postDefaultAlgorithm();
+          } else if (algorithmStore.chosenAlgorithm === 'custom') {
+            postCustomAlgorithm();
+          }
         }}
       />
     </>
