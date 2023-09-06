@@ -8,14 +8,20 @@ export const FileUploadLogic = {
 async function parseData(file: File) {
   const fileType = file.name.split('.').pop();
 
-  switch (fileType) {
-    case 'csv':
+  if (!fileType) {
+    throw new Error('File type not exist');
+  }
+
+  switch (true) {
+    case fileType === 'csv':
       return await parseCSV(file);
-    case 'xlsx':
+    case ['xlsx', 'xls'].includes(fileType):
       return await parseXLSX(file);
   }
 
-  throw new Error('Unsupported file type');
+  throw new Error(
+    'Unsupported file type, please upload one of the following file extensions: .csv, .xlsx, .xls',
+  );
 }
 function parseCSV(file: File): Promise<string[][] | null> {
   return new Promise((resolve, reject) => {
