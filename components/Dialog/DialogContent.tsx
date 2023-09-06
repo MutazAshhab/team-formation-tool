@@ -1,11 +1,9 @@
 interface DialogContentProps {
-  className?: string;
+  className?: React.ComponentProps<'div'>['className'];
   children: React.ReactNode;
 }
 
-export function DialogContent({
-  className = '',
-  children,
-}: DialogContentProps) {
-  return <div className={className}>{children}</div>;
+export function DialogContent(props: DialogContentProps) {
+  const classNames = ['h-[600px]', props.className].join(' ');
+  return <div className={classNames}>{props.children}</div>;
 }
