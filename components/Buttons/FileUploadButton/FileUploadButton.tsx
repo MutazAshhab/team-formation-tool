@@ -34,6 +34,13 @@ export function FileUploadButton() {
         accept=".csv, .xls, .xlsx"
         onChange={handleFileUpload}
       />
+      {/* add this styling when we support more file formats w-64 flex-wrap */}
+      <p className="mt-3 text-sm text-gray-600 ">
+        Accepted file formats are: .csv, .xls, .xlsx
+        <br />
+        <br />
+        But we work best with .csv
+      </p>
     </div>
   );
 }
