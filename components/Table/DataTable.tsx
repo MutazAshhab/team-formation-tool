@@ -9,46 +9,44 @@ export function DataTable() {
   const rows = tableStore.data.slice(1);
 
   return (
-    <table className="min-w-full bg-white border border-gray-300 text-left ">
-      <thead className="bg-gray-100">
-        <tr>
-          {/* # for the row number */}
-          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider">
-            #
-          </th>
-          {/* Headers */}
-          {headers.map((header, index) => (
-            <th
-              className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider"
-              key={index}
-            >
-              {header}
+    <div className="max-w-[600px] max-h-[50vh] overflow-auto">
+      <table className="min-w-full bg-white border border-gray-300 text-left ">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider">
+              #
             </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, index) => (
-          <tr
-            key={index}
-            className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
-          >
-            {/* Row number */}
-            <td className="py-2 px-4 border-b border-gray-300 text-gray-800">
-              {index}
-            </td>
-            {/* The rest of the row data */}
-            {row.map((cell, i) => (
-              <td
-                key={i}
-                className="py-2 px-4 border-b border-gray-300 text-gray-800"
+            {headers.map((header, index) => (
+              <th
+                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider"
+                key={index}
               >
-                {cell}
-              </td>
+                {header}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => (
+            <tr
+              key={index}
+              className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+            >
+              <td className="py-2 px-4 border-b border-gray-300 text-gray-800">
+                {index}
+              </td>
+              {row.map((cell, i) => (
+                <td
+                  key={i}
+                  className="py-2 px-4 border-b border-gray-300 text-gray-800"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
