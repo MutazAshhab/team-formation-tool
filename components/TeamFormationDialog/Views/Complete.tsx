@@ -13,7 +13,7 @@ export function Complete() {
 
   async function postDefaultAlgorithm() {
     const data = await axios.post('http://127.0.0.1:8000/default_algorithm', {
-      mapping_list: algorithmStore.mapping,
+      mapping: algorithmStore.mapping,
       csv_data: tableStore.data,
     });
 
