@@ -1,5 +1,6 @@
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
+import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import axios from 'axios';
@@ -9,11 +10,12 @@ import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFoote
 export function Complete() {
   const teamFormationStore = useTeamFormationStepsStore();
   const algorithmStore = useAlgorithmStore();
+  const defaultAlgorithmStore = useDefaultAlgorithmStore();
   const tableStore = useTableStore();
 
   async function postDefaultAlgorithm() {
     const data = await axios.post('http://127.0.0.1:8000/default_algorithm', {
-      mapping: algorithmStore.mapping,
+      mapping: defaultAlgorithmStore.mapping,
       csv_data: tableStore.data,
     });
 
