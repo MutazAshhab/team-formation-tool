@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
-import { DefaultMapping, useAlgorithmStore } from '@/zustand/useAlgorithmStore';
+import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
+import {
+  DefaultMapping,
+  useDefaultAlgorithmStore,
+} from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
@@ -13,6 +17,7 @@ export function DefaultAlgorithmMapping() {
   const teamFormationStore = useTeamFormationStepsStore();
   const tableStore = useTableStore();
   const algorithmStore = useAlgorithmStore();
+  const defaultAlgorithmStore = useDefaultAlgorithmStore();
 
   // Component state
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -27,21 +32,25 @@ export function DefaultAlgorithmMapping() {
 
   // Update component state when
   useEffect(() => {
-    if (algorithmStore.mapping.length > 0) {
-      const jsonObject: Record<string, string> = {};
+    if (defaultAlgorithmStore.mapping !== null) {
+      const mappingObject: Record<string, string> = {};
       const selectedArray: string[] = [];
-      const defaultMapping = algorithmStore.mapping as DefaultMapping[];
 
-      defaultMapping.forEach(mapping => {
-        const option = options.find(opt => opt.key === mapping.optionName);
-        if (option) {
-          jsonObject[mapping.columnName] = option.label;
-          selectedArray.push(option.label);
+      const defaultMapping = defaultAlgorithmStore.mapping;
+      for (const key in defaultMapping) {
+        if (Object.prototype.hasOwnProperty.call(defaultMapping, key)) {
+          const value = defaultMapping[key as keyof DefaultMapping];
+          const option = options.find(o => o.key === key);
+
+          if (option) {
+            mappingObject[value] = option.label;
+            selectedArray.push(option.label);
+          }
         }
-      });
+      }
 
       setSelectedOptions(selectedArray);
-      setMapping(jsonObject);
+      setMapping(mappingObject);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -128,15 +137,26 @@ export function DefaultAlgorithmMapping() {
           }
 
           // Convert the mapping to an `DefaultMapping` array
-          const defaultMapping = Object.keys(mapping).map(key => {
-            const option = options.find(opt => opt.label === mapping[key]);
-            return {
-              columnName: key,
-              optionName: option ? option.key : 'undefined',
-            };
-          });
+          const defaultMapping: DefaultMapping = {
+            gender: '',
+            first_language: '',
+            wam: '',
+            anxiety: '',
+            agreeableness: '',
+          };
 
-          algorithmStore.setMapping(defaultMapping);
+          // Populate defaultMapping based on mappingObject and options
+          for (const key in mapping) {
+            const label = mapping[key];
+            const option = options.find(o => o.label === label);
+
+            if (option) {
+              // Using 'as keyof DefaultMapping' to tell TypeScript that the key exists in DefaultMapping
+              defaultMapping[option.key as keyof DefaultMapping] = key;
+            }
+          }
+
+          defaultAlgorithmStore.setMapping(defaultMapping);
 
           teamFormationStore.gotoNextView();
         }}
