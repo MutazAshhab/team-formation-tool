@@ -5,18 +5,6 @@ import { useDefaultAlgorithmStore } from './useDefaultAlgorithmStore';
 
 type AlgorithmOptions = 'default' | 'custom';
 
-interface Mapping {
-  columnName: string;
-}
-
-export interface DefaultMapping extends Mapping {
-  optionName: string;
-}
-
-export interface CustomMapping extends Mapping {
-  constraint: string; // String for now
-}
-
 type AlgorithmStore = {
   chosenAlgorithm: AlgorithmOptions | null;
   setChosenAlgorithm: (option: AlgorithmOptions) => void;
