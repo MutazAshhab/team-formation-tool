@@ -1,5 +1,8 @@
 import { create } from 'zustand';
 
+import { useCustomAlgorithmStore } from './useCustomAlgorithmStore';
+import { useDefaultAlgorithmStore } from './useDefaultAlgorithmStore';
+
 type AlgorithmOptions = 'default' | 'custom';
 
 interface Mapping {
@@ -19,8 +22,6 @@ type AlgorithmStore = {
   setChosenAlgorithm: (option: AlgorithmOptions) => void;
   teamSize: number | null;
   setTeamSize: (size: number) => void;
-  mapping: (DefaultMapping | CustomMapping)[];
-  setMapping: (mapping: (DefaultMapping | CustomMapping)[]) => void;
   reset: () => void;
 };
 
@@ -33,11 +34,14 @@ export const useAlgorithmStore = create<AlgorithmStore>(set => ({
   setTeamSize: (size: number) => {
     set({ teamSize: size });
   },
-  mapping: [],
-  setMapping: (mapping: (DefaultMapping | CustomMapping)[]) => {
-    set({ mapping });
-  },
   reset: () => {
-    set({ chosenAlgorithm: null, teamSize: null, mapping: [] });
+    const customAlgoStore = useCustomAlgorithmStore.getState();
+    const defaultAlgoStore = useDefaultAlgorithmStore.getState();
+
+    // Reset the other algorithm stores
+    customAlgoStore.reset();
+    defaultAlgoStore.reset();
+
+    set({ chosenAlgorithm: null, teamSize: null });
   },
 }));
