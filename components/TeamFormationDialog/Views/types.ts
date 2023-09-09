@@ -1,1 +1,1 @@
-export type ColumnValuesErrorType = 'name' | 'value' | null;
+export type ColumnValuesErrorType = 'name' | 'value' | 'min' | 'max' | null;
