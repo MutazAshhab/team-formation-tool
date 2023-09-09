@@ -5,7 +5,6 @@ import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { ColumnNameSelector } from '@/components/MISC/ColumnNameSelector';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
-import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
 import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
