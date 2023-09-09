@@ -4,7 +4,8 @@ import { AlertBox } from '../AlertBoxes/AlertBox';
 
 interface ColumnNameSelectorProps {
   label: string;
-  onSelect: (value: string) => void;
+  onSelect: (value: string | null) => void;
+  selectedValue: string | null;
 }
 
 export function ColumnNameSelector(props: ColumnNameSelectorProps) {
@@ -19,7 +20,13 @@ export function ColumnNameSelector(props: ColumnNameSelectorProps) {
   }
 
   function handleSelectChange(value: string) {
-    props.onSelect(value);
+    let valueToSet: string | null = value;
+
+    if (value === '') {
+      valueToSet = null;
+    }
+
+    props.onSelect(valueToSet);
   }
 
   const headers = table.data[0];
@@ -30,6 +37,7 @@ export function ColumnNameSelector(props: ColumnNameSelectorProps) {
         {props.label}
       </label>
       <select
+        value={props.selectedValue ?? ''}
         onChange={e => handleSelectChange(e.target.value)}
         className="mt-2 w-full p-3 border border-gray-300 rounded-lg"
       >
