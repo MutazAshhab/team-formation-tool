@@ -11,7 +11,7 @@ import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore
 
 import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
 import { ColumnValuesErrorBox } from '../ColumnValuesErrorBox';
-import { ColumnValuesErrorType } from './types';
+import { ColumnValuesErrorType } from '../types';
 
 export function Gender() {
   const teamFormationStore = useTeamFormationStepsStore();

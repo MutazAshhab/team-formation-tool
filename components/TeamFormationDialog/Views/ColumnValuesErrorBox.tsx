@@ -1,6 +1,6 @@
 import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 
-import { ColumnValuesErrorType } from './DefaultAlgorithmMapping/types';
+import { ColumnValuesErrorType } from './types';
 
 export function ColumnValuesErrorBox(props: { type: ColumnValuesErrorType }) {
   if (props.type === null) {
