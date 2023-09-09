@@ -11,7 +11,7 @@ type DefaultAlgorithmStore = {
   first_language: ColumnAndValues;
   setFirstLanguage: (first_language: ColumnAndValues) => void;
   wam: string | null;
-  setWam: (wam: string) => void;
+  setWam: (wam: string | null) => void;
   anxiety: string | null;
   setAnxiety: (anxiety: string) => void;
   agreeableness: string | null;
@@ -39,7 +39,7 @@ export const useDefaultAlgorithmStore = create<DefaultAlgorithmStore>(set => ({
     });
   },
   wam: null,
-  setWam: (wam: string) => {
+  setWam: (wam: string | null) => {
     set({
       wam,
     });
