@@ -6,7 +6,11 @@ import { Complete } from './Views/Complete';
 import { CustomAlgorithmExplainer } from './Views/CustomAlgorithmExplainer';
 import { CustomAlgorithmMapping } from './Views/CustomAlgorithmMapping';
 import { DefaultAlgorithmExplainer } from './Views/DefaultAlgorithmExplainer';
-import { DefaultAlgorithmMapping } from './Views/DefaultAlgorithmMapping';
+import { Agreeableness } from './Views/DefaultAlgorithmMapping/Agreeableness';
+import { Anxiety } from './Views/DefaultAlgorithmMapping/Anxiety';
+import { FirstLanguage } from './Views/DefaultAlgorithmMapping/FirstLanguage';
+import { Gender } from './Views/DefaultAlgorithmMapping/Gender';
+import { Wam } from './Views/DefaultAlgorithmMapping/Wam';
 import { DeveloperError } from './Views/DeveloperError';
 import { Explainer } from './Views/Explainer';
 
@@ -19,8 +23,16 @@ export function TeamFormationStepsDialog() {
         return <Explainer />;
       case views.defaultAlgorithmExplainer:
         return <DefaultAlgorithmExplainer />;
-      case views.defaultAlgorithmMapping:
-        return <DefaultAlgorithmMapping />;
+      case views.gender:
+        return <Gender />;
+      case views.agreeableness:
+        return <Agreeableness />;
+      case views.anxiety:
+        return <Anxiety />;
+      case views.wam:
+        return <Wam />;
+      case views.firstLanguage:
+        return <FirstLanguage />;
       case views.customAlgorithmExplainer:
         return <CustomAlgorithmExplainer />;
       case views.customAlgorithmMapping:
