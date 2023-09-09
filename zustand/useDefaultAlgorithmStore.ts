@@ -5,6 +5,12 @@ interface ColumnAndValues {
   values: string[];
 }
 
+interface ColumnAndMinMax {
+  name: string | null;
+  min: number | null;
+  max: number | null;
+}
+
 type DefaultAlgorithmStore = {
   gender: ColumnAndValues;
   setGender: (gender: ColumnAndValues) => void;
@@ -12,10 +18,10 @@ type DefaultAlgorithmStore = {
   setFirstLanguage: (first_language: ColumnAndValues) => void;
   wam: string | null;
   setWam: (wam: string | null) => void;
-  anxiety: string | null;
-  setAnxiety: (anxiety: string) => void;
-  agreeableness: string | null;
-  setAgreeableness: (agreeableness: string) => void;
+  anxiety: ColumnAndMinMax;
+  setAnxiety: (anxiety: ColumnAndMinMax) => void;
+  agreeableness: ColumnAndMinMax;
+  setAgreeableness: (agreeableness: ColumnAndMinMax) => void;
   reset: () => void;
 };
 
@@ -44,14 +50,22 @@ export const useDefaultAlgorithmStore = create<DefaultAlgorithmStore>(set => ({
       wam,
     });
   },
-  anxiety: null,
-  setAnxiety: (anxiety: string) => {
+  anxiety: {
+    name: null,
+    min: null,
+    max: null,
+  },
+  setAnxiety: (anxiety: ColumnAndMinMax) => {
     set({
       anxiety,
     });
   },
-  agreeableness: null,
-  setAgreeableness: (agreeableness: string) => {
+  agreeableness: {
+    name: null,
+    min: null,
+    max: null,
+  },
+  setAgreeableness: (agreeableness: ColumnAndMinMax) => {
     set({
       agreeableness,
     });
@@ -62,12 +76,18 @@ export const useDefaultAlgorithmStore = create<DefaultAlgorithmStore>(set => ({
       values: [],
     };
 
+    const emptyColumnAndMinMax = {
+      name: null,
+      min: null,
+      max: null,
+    };
+
     set({
       gender: emptyColumnAndValuesObject,
       first_language: emptyColumnAndValuesObject,
       wam: null,
-      anxiety: null,
-      agreeableness: null,
+      anxiety: emptyColumnAndMinMax,
+      agreeableness: emptyColumnAndMinMax,
     });
   },
 }));
