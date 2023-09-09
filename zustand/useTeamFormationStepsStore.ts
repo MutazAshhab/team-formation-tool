@@ -5,10 +5,16 @@ import { useAlgorithmStore } from './useAlgorithmStore';
 export const views = {
   explainer: 'explainer', // First page
 
-  // Default algorithm
+  // ---------------- DEFAULT ALGORITHM --------------------
   defaultAlgorithmExplainer: 'defaultAlgorithmExplainer', // Default algorithm explainer
-  defaultAlgorithmMapping: 'defaultAlgorithmMapping', // Where the user maps their data to the default algorithm parameters
+  // Where the user maps their data to the default algorithm parameters
+  gender: 'gender',
+  firstLanguage: 'firstLanguage',
+  wam: 'wam',
+  anxiety: 'anxiety',
+  agreeableness: 'agreeableness',
 
+  // ---------------- CUSTOM ALGORITHM --------------------
   customAlgorithmExplainer: 'customAlgorithmExplainer', // Custom algorithm explainer
   customAlgorithmMapping: 'customAlgorithmMapping', // Where the user maps their data to the constraints that they want
 
@@ -45,9 +51,21 @@ export const useTeamFormationStepsStore = create<TeamFormationStepsStore>(
             nextView = views.developerError;
             break;
           case views.defaultAlgorithmExplainer:
-            nextView = views.defaultAlgorithmMapping;
+            nextView = views.gender;
             break;
-          case views.defaultAlgorithmMapping:
+          case views.gender:
+            nextView = views.firstLanguage;
+            break;
+          case views.firstLanguage:
+            nextView = views.wam;
+            break;
+          case views.wam:
+            nextView = views.anxiety;
+            break;
+          case views.anxiety:
+            nextView = views.agreeableness;
+            break;
+          case views.agreeableness:
             nextView = views.complete;
             break;
           case views.customAlgorithmExplainer:
