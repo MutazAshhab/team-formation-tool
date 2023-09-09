@@ -33,21 +33,13 @@ export function DefaultAlgorithmMapping() {
   // Update component state when
   useEffect(() => {
     if (defaultAlgorithmStore.mapping !== null) {
-      const mappingObject: Record<string, string> = {};
-      const selectedArray: string[] = [];
-
-      const defaultMapping = defaultAlgorithmStore.mapping;
-      for (const key in defaultMapping) {
-        if (Object.prototype.hasOwnProperty.call(defaultMapping, key)) {
-          const value = defaultMapping[key as keyof DefaultMapping];
-          const option = options.find(o => o.key === key);
-
-          if (option) {
-            mappingObject[value] = option.label;
-            selectedArray.push(option.label);
-          }
-        }
-      }
+      const mappingObject = defaultAlgorithmStore.mapping as unknown as Record<
+        string,
+        string
+      >;
+      const selectedArray: string[] = Object.values(
+        defaultAlgorithmStore.mapping,
+      );
 
       setSelectedOptions(selectedArray);
       setMapping(mappingObject);
@@ -55,20 +47,18 @@ export function DefaultAlgorithmMapping() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const headers = tableStore.data[0];
-
-  const handleSelectChange = (col: string, value: string) => {
-    setMapping({ ...mapping, [col]: value });
+  function handleSelectChange(key: string, headerName: string) {
+    setMapping({ ...mapping, [key]: headerName });
 
     // Update the list of selected options
-    const prevValue = mapping[col];
+    const prevValue = mapping[key];
     setSelectedOptions(
       prevSelected =>
         prevSelected
           .filter(opt => opt !== prevValue)
-          .concat(value !== '' ? value : []), // this removes the value if it is an empty string
+          .concat(headerName !== '' ? headerName : []), // this removes the value if it is an empty string
     );
-  };
+  }
 
   const options = [
     { label: 'Gender', key: 'gender' },
@@ -78,6 +68,8 @@ export function DefaultAlgorithmMapping() {
     { label: 'Agreeableness', key: 'agreeableness' },
   ];
 
+  const headers = tableStore.data[0];
+
   return (
     <>
       <DialogHeader
@@ -86,46 +78,40 @@ export function DefaultAlgorithmMapping() {
       />
       <DialogContent className="flex flex-col gap-4">
         <AlertBox variant="info">
-          For the default algorithm, each team will have 5 team members
+          For the default team formation strategy, the algorithm will aim to
+          create team of 5.
         </AlertBox>
         <div className="overflow-auto border rounded-lg flex flex-col gap-4 items-center py-2">
-          {headers.map(header => (
+          {options.map(option => (
             <div
-              key={header}
+              key={option.key}
               className="p-2 border border-gray-300 rounded-lg w-[96%]"
             >
               <label className="block text-md font-medium text-gray-700">
-                {header}
+                {option.label}
               </label>
               <select
-                value={mapping[header] || ''}
-                onChange={e => handleSelectChange(header, e.target.value)}
+                value={mapping[option.key] || ''}
+                onChange={e => handleSelectChange(option.key, e.target.value)}
                 className="mt-2 w-full p-3 border border-gray-300 rounded-lg"
               >
                 <option value="" className="text-gray-400">
-                  Select an option
+                  Select the respective header
                 </option>
-                {options
-                  .filter(
-                    opt =>
-                      !selectedOptions.includes(opt.label) ||
-                      mapping[header] === opt.label,
-                  )
-                  .map(opt => (
-                    <option
-                      key={opt.label}
-                      value={opt.label}
-                      className="text-black"
-                    >
-                      {opt.label}
-                    </option>
-                  ))}
+                {headers.map(header => (
+                  <option
+                    key={header}
+                    value={header}
+                    className="text-gray-700"
+                    disabled={selectedOptions.includes(header)}
+                  >
+                    {header}
+                  </option>
+                ))}
               </select>
             </div>
           ))}
         </div>
-        {/* place a thingy here which tells the user what maps to what, in a nice UI, could also show them an error message here */}
-        {/* <div></div> */}
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={() => {
@@ -136,27 +122,13 @@ export function DefaultAlgorithmMapping() {
             return;
           }
 
-          // Convert the mapping to an `DefaultMapping` array
-          const defaultMapping: DefaultMapping = {
-            gender: '',
-            first_language: '',
-            wam: '',
-            anxiety: '',
-            agreeableness: '',
-          };
-
-          // Populate defaultMapping based on mappingObject and options
-          for (const key in mapping) {
-            const label = mapping[key];
-            const option = options.find(o => o.label === label);
-
-            if (option) {
-              // Using 'as keyof DefaultMapping' to tell TypeScript that the key exists in DefaultMapping
-              defaultMapping[option.key as keyof DefaultMapping] = key;
-            }
-          }
-
-          defaultAlgorithmStore.setMapping(defaultMapping);
+          defaultAlgorithmStore.setMapping({
+            gender: mapping.gender,
+            first_language: mapping.first_language,
+            wam: mapping.wam,
+            anxiety: mapping.anxiety,
+            agreeableness: mapping.agreeableness,
+          });
 
           teamFormationStore.gotoNextView();
         }}
