@@ -1,10 +1,15 @@
 import { create } from 'zustand';
 
+interface ColumnAndValues {
+  name: string | null;
+  values: string[];
+}
+
 type DefaultAlgorithmStore = {
-  gender: string | null;
-  setGender: (gender: string) => void;
-  first_language: string[] | null;
-  setFirstLanguage: (first_language: string[]) => void;
+  gender: ColumnAndValues;
+  setGender: (gender: ColumnAndValues) => void;
+  first_language: ColumnAndValues;
+  setFirstLanguage: (first_language: ColumnAndValues) => void;
   wam: string | null;
   setWam: (wam: string) => void;
   anxiety: string | null;
@@ -15,14 +20,20 @@ type DefaultAlgorithmStore = {
 };
 
 export const useDefaultAlgorithmStore = create<DefaultAlgorithmStore>(set => ({
-  gender: null,
-  setGender: (gender: string) => {
+  gender: {
+    name: null,
+    values: [],
+  },
+  setGender: (gender: ColumnAndValues) => {
     set({
       gender,
     });
   },
-  first_language: null,
-  setFirstLanguage: (first_language: string[]) => {
+  first_language: {
+    name: null,
+    values: [],
+  },
+  setFirstLanguage: (first_language: ColumnAndValues) => {
     set({
       first_language,
     });
@@ -46,9 +57,14 @@ export const useDefaultAlgorithmStore = create<DefaultAlgorithmStore>(set => ({
     });
   },
   reset: () => {
+    const emptyColumnAndValuesObject = {
+      name: null,
+      values: [],
+    };
+
     set({
-      gender: null,
-      first_language: null,
+      gender: emptyColumnAndValuesObject,
+      first_language: emptyColumnAndValuesObject,
       wam: null,
       anxiety: null,
       agreeableness: null,
