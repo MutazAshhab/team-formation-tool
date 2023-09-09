@@ -14,8 +14,16 @@ export function Complete() {
   const tableStore = useTableStore();
 
   async function postDefaultAlgorithm() {
+    const algorithmData = {
+      gender: defaultAlgorithmStore.gender,
+      first_language: defaultAlgorithmStore.first_language,
+      wam: defaultAlgorithmStore.wam,
+      anxiety: defaultAlgorithmStore.anxiety,
+      agreeableness: defaultAlgorithmStore.agreeableness,
+    };
+
     const data = await axios.post('http://127.0.0.1:8000/default_algorithm', {
-      mapping: defaultAlgorithmStore.mapping,
+      algorithm_data: algorithmData,
       csv_data: tableStore.data,
     });
 
@@ -42,3 +50,32 @@ export function Complete() {
     </>
   );
 }
+
+/**
+ * algorithmData v 
+ * {
+    "gender": {
+        "name": "GENDER",
+        "values": [
+            "F"
+        ]
+    },
+    "first_language": {
+        "name": "NATIONALITY",
+        "values": [
+            "English"
+        ]
+    },
+    "wam": "WAM",
+    "anxiety": {
+        "name": "Anxiety",
+        "min": 0,
+        "max": 5
+    },
+    "agreeableness": {
+        "name": "Agreeableness",
+        "min": 0,
+        "max": 5
+    }
+}
+ */
