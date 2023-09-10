@@ -63,7 +63,7 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     diverse_gender_values = column_mapping.gender.values
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][gender_col] not in diverse_gender_values) >= 2
+                            if data.iloc[student][gender_col] in diverse_gender_values) >= 2
 
     # At least 2 non-English speakers in each team
     english_speaking_values = column_mapping.first_language.values
@@ -92,11 +92,7 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     model.solve()
 
     # Check the status
-    status = pulp.LpStatus[model.status]
-    print(f"Status: {status}")
-
-    if status != 'Optimal':
-        print("The problem doesn't have an optimal solution.")
+    is_optimal = pulp.LpStatus[model.status] == 'Optimal'
 
     # Prepare the results
     teams = {}
@@ -104,4 +100,4 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
         teams[f"Team {team + 1}"] = [data.iloc[student].to_dict()
                                      for student in range(num_students) if x[student, team].varValue == 1]
 
-    return teams
+    return is_optimal, teams
