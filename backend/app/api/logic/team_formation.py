@@ -13,6 +13,13 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     num_students = len(data)
     num_teams = num_students // 5  # Assuming teams of 5
 
+    # Use mapped column names
+    gender_col = column_mapping.gender.name
+    first_language_col = column_mapping.first_language.name
+    wam_col = column_mapping.wam
+    anxiety_col = column_mapping.anxiety.name
+    agreeableness_col = column_mapping.agreeableness.name
+
     # Create a binary variable to state that a student is assigned to a particular team
     x = pulp.LpVariable.dicts("student_team",
                               ((student, team) for student in range(num_students)
@@ -39,19 +46,16 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
 
     # At least 2 women in each team
     # Use default column name if not mapped
-    gender_col = column_mapping.gender
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
                             if data.iloc[student][gender_col] == 'female') >= 2
 
     # At least 2 non-English speakers in each team
-    first_language = column_mapping.first_language
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][first_language] != 'English') >= 2
+                            if data.iloc[student][first_language_col] != 'English') >= 2
 
     # WAM constraints
-    wam_col = column_mapping.wam
     data[wam_col] = pd.to_numeric(data[wam_col], errors="raise")
     for team in range(num_teams):
         for student in range(num_students):
@@ -60,15 +64,13 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
                     model += x[student, team] + x[other_student, team] <= 1
 
     # At least one agreeable member in each team
-    agreeability_col = column_mapping.agreeableness
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][agreeability_col] == "TRUE") >= 1
+                            if data.iloc[student][agreeableness_col] == "TRUE") >= 1
 
     # TODO: data.iloc[student][agreeability_col] == True is it true or is it a score?
 
     # No more than one high anxiety member in each team
-    anxiety_col = column_mapping.anxiety
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
                             if data.iloc[student][anxiety_col] == 'High') <= 1
