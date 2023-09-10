@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { ColumnNameSelector } from '@/components/MISC/ColumnNameSelector';
@@ -62,6 +63,13 @@ export function Agreeableness() {
               turnOffError('max');
             }}
           />
+        )}
+        {defaultAlgorithmStore.agreeableness.name && (
+          <AlertBox variant="info">
+            Please make sure that all the values within the
+            <strong>{defaultAlgorithmStore.agreeableness.name}</strong> column
+            are numbers.
+          </AlertBox>
         )}
         <ColumnValuesErrorBox type={error} />
       </DialogContent>
