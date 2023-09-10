@@ -91,6 +91,13 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     # Solve the model
     model.solve()
 
+    # Check the status
+    status = pulp.LpStatus[model.status]
+    print(f"Status: {status}")
+
+    if status != 'Optimal':
+        print("The problem doesn't have an optimal solution.")
+
     # Prepare the results
     teams = {}
     for team in range(num_teams):
