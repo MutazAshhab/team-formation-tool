@@ -85,14 +85,10 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
                             if data.iloc[student][agreeableness_col] == "TRUE") >= 1
 
-    # TODO: data.iloc[student][agreeability_col] == True is it true or is it a score?
-
     # No more than one high anxiety member in each team
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
                             if data.iloc[student][anxiety_col] == 'High') <= 1
-
-    # TODO: data.iloc[student][agreeability_col] == high is it low, medium, or high or is it a score
 
     # Solve the model
     model.solve()
