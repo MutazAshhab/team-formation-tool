@@ -93,11 +93,7 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     model.solve()
 
     # Check the status
-    status = pulp.LpStatus[model.status]
-    print(f"Status: {status}")
-
-    if status != 'Optimal':
-        print("The problem doesn't have an optimal solution.")
+    is_optimal = pulp.LpStatus[model.status] == 'Optimal'
 
     # Prepare the results
     teams = {}
@@ -105,7 +101,7 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
         teams[f"Team {team + 1}"] = [data.iloc[student].to_dict()
                                      for student in range(num_students) if x[student, team].varValue == 1]
 
-    return teams
+    return is_optimal, teams
 
 
 def constraint_programming(csv_file, column_mapping: AlgorithmDataMapping):
