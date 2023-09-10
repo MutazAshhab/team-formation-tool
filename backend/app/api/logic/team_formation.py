@@ -44,7 +44,7 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
         model += pulp.lpSum(x[student, team]
                             for student in range(num_students)) == 5
 
-    # At least 2 women in each team
+    # At least 2 'diverse' genders in each team
     diverse_gender_values = column_mapping.gender.values
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
