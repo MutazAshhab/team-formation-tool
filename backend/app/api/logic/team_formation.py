@@ -26,6 +26,17 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     data[agreeableness_col] = pd.to_numeric(
         data[agreeableness_col], errors="raise")
 
+    anxiety_min = column_mapping.anxiety.min
+    anxiety_max = column_mapping.anxiety.max
+
+    agreeableness_min = column_mapping.agreeableness.min
+    agreeableness_max = column_mapping.agreeableness.max
+
+    # Calculate the 75% thresholds
+    high_anxiety_threshold = (anxiety_max - anxiety_min) * 0.75 + anxiety_min
+    high_agreeableness_threshold = (
+        agreeableness_max - agreeableness_min) * 0.75 + agreeableness_min
+
     # Create a binary variable to state that a student is assigned to a particular team
     x = pulp.LpVariable.dicts("student_team",
                               ((student, team) for student in range(num_students)
