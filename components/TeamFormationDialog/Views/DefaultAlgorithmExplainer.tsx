@@ -1,12 +1,22 @@
+import { useEffect } from 'react';
+
 import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
+import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
 import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
 
 export function DefaultAlgorithmExplainer() {
   const teamFormationStore = useTeamFormationStepsStore();
+  const algorithmStore = useAlgorithmStore();
+
+  useEffect(() => {
+    algorithmStore.setTeamSize(5);
+    algorithmStore.setChosenAlgorithm('default');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
