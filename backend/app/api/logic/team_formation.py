@@ -83,12 +83,12 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     # At least one agreeable member in each team
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][agreeableness_col] == "TRUE") >= 1
+                            if data.iloc[student][agreeableness_col] > high_agreeableness_threshold) >= 1
 
     # No more than one high anxiety member in each team
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][anxiety_col] == 'High') <= 1
+                            if data.iloc[student][anxiety_col] > high_anxiety_threshold) <= 1
 
     # Solve the model
     model.solve()
