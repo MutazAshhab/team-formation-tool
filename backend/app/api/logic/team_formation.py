@@ -48,7 +48,7 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     diverse_gender_values = column_mapping.gender.values
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][first_language_col] not in diverse_gender_values) >= 2
+                            if data.iloc[student][gender_col] not in diverse_gender_values) >= 2
 
     # At least 2 non-English speakers in each team
     english_speaking_values = column_mapping.first_language.values
