@@ -1,5 +1,3 @@
-import csv
-import json
 import pandas as pd
 import pulp
 
@@ -12,6 +10,30 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
 
     num_students = len(data)
     num_teams = num_students // 5  # Assuming teams of 5
+
+    # Use mapped column names
+    gender_col = column_mapping.gender.name
+    first_language_col = column_mapping.first_language.name
+    wam_col = column_mapping.wam
+    anxiety_col = column_mapping.anxiety.name
+    agreeableness_col = column_mapping.agreeableness.name
+
+    # Convert the data to the correct types
+    data[wam_col] = pd.to_numeric(data[wam_col], errors="raise")
+    data[anxiety_col] = pd.to_numeric(data[anxiety_col], errors="raise")
+    data[agreeableness_col] = pd.to_numeric(
+        data[agreeableness_col], errors="raise")
+
+    anxiety_min = column_mapping.anxiety.min
+    anxiety_max = column_mapping.anxiety.max
+
+    agreeableness_min = column_mapping.agreeableness.min
+    agreeableness_max = column_mapping.agreeableness.max
+
+    # Calculate the 75% thresholds
+    high_anxiety_threshold = (anxiety_max - anxiety_min) * 0.75 + anxiety_min
+    high_agreeableness_threshold = (
+        agreeableness_max - agreeableness_min) * 0.75 + agreeableness_min
 
     # Create a binary variable to state that a student is assigned to a particular team
     x = pulp.LpVariable.dicts("student_team",
@@ -37,22 +59,19 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
         model += pulp.lpSum(x[student, team]
                             for student in range(num_students)) == 5
 
-    # At least 2 women in each team
-    # Use default column name if not mapped
-    gender_col = column_mapping.gender
+    # At least 2 'diverse' genders in each team
+    diverse_gender_values = column_mapping.gender.values
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][gender_col] == 'female') >= 2
+                            if data.iloc[student][gender_col] not in diverse_gender_values) >= 2
 
     # At least 2 non-English speakers in each team
-    first_language = column_mapping.first_language
+    english_speaking_values = column_mapping.first_language.values
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][first_language] != 'English') >= 2
+                            if data.iloc[student][first_language_col] not in english_speaking_values) >= 2
 
     # WAM constraints
-    wam_col = column_mapping.wam
-    data[wam_col] = pd.to_numeric(data[wam_col], errors="raise")
     for team in range(num_teams):
         for student in range(num_students):
             for other_student in range(student+1, num_students):
@@ -60,23 +79,24 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
                     model += x[student, team] + x[other_student, team] <= 1
 
     # At least one agreeable member in each team
-    agreeability_col = column_mapping.agreeableness
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][agreeability_col] == "TRUE") >= 1
-
-    # TODO: data.iloc[student][agreeability_col] == True is it true or is it a score?
+                            if data.iloc[student][agreeableness_col] > high_agreeableness_threshold) >= 1
 
     # No more than one high anxiety member in each team
-    anxiety_col = column_mapping.anxiety
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][anxiety_col] == 'High') <= 1
-
-    # TODO: data.iloc[student][agreeability_col] == high is it low, medium, or high or is it a score
+                            if data.iloc[student][anxiety_col] > high_anxiety_threshold) <= 1
 
     # Solve the model
     model.solve()
+
+    # Check the status
+    status = pulp.LpStatus[model.status]
+    print(f"Status: {status}")
+
+    if status != 'Optimal':
+        print("The problem doesn't have an optimal solution.")
 
     # Prepare the results
     teams = {}
