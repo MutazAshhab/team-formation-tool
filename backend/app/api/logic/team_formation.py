@@ -20,6 +20,12 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     anxiety_col = column_mapping.anxiety.name
     agreeableness_col = column_mapping.agreeableness.name
 
+    # Convert the data to the correct types
+    data[wam_col] = pd.to_numeric(data[wam_col], errors="raise")
+    data[anxiety_col] = pd.to_numeric(data[anxiety_col], errors="raise")
+    data[agreeableness_col] = pd.to_numeric(
+        data[agreeableness_col], errors="raise")
+
     # Create a binary variable to state that a student is assigned to a particular team
     x = pulp.LpVariable.dicts("student_team",
                               ((student, team) for student in range(num_students)
@@ -57,7 +63,6 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
                             if data.iloc[student][first_language_col] not in english_speaking_values) >= 2
 
     # WAM constraints
-    data[wam_col] = pd.to_numeric(data[wam_col], errors="raise")
     for team in range(num_teams):
         for student in range(num_students):
             for other_student in range(student+1, num_students):
