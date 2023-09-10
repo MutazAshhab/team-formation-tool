@@ -51,9 +51,10 @@ def default_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
                             if data.iloc[student][gender_col] == 'female') >= 2
 
     # At least 2 non-English speakers in each team
+    english_speaking_values = column_mapping.first_language.values
     for team in range(num_teams):
         model += pulp.lpSum(x[student, team] for student in range(num_students)
-                            if data.iloc[student][first_language_col] != 'English') >= 2
+                            if data.iloc[student][first_language_col] not in english_speaking_values) >= 2
 
     # WAM constraints
     data[wam_col] = pd.to_numeric(data[wam_col], errors="raise")
