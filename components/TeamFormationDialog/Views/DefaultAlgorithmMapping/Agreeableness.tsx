@@ -66,7 +66,7 @@ export function Agreeableness() {
         )}
         {defaultAlgorithmStore.agreeableness.name && (
           <AlertBox variant="info">
-            Please make sure that all the values within the
+            Please make sure that all the values within the{' '}
             <strong>{defaultAlgorithmStore.agreeableness.name}</strong> column
             are numbers.
           </AlertBox>

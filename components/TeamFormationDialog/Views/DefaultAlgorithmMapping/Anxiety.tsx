@@ -65,7 +65,7 @@ export function Anxiety() {
         )}
         {defaultAlgorithmStore.anxiety.name && (
           <AlertBox variant="info">
-            Please make sure that all the values within the
+            Please make sure that all the values within the{' '}
             <strong>{defaultAlgorithmStore.anxiety.name}</strong> column are
             numbers.
           </AlertBox>
