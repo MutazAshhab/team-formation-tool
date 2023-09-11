@@ -34,22 +34,28 @@ export function Complete() {
       agreeableness: defaultAlgorithmStore.agreeableness,
     };
 
-    const response = await axios.post(
-      'http://127.0.0.1:8000/default_algorithm',
-      {
-        mapping: algorithmData,
-        csv_data: tableStore.data,
-      },
-    );
-
-    if (response.status === 200) {
-      const teams = TeamTableLogic.convertResponseTo2dArray(
-        response.data.teams,
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/default_algorithm',
+        {
+          mapping: algorithmData,
+          csv_data: tableStore.data,
+        },
       );
 
-      tableStore.setFormedTeams(teams);
-      router.push('/view-teams');
-      teamFormationStore.closeTeamFormationModal();
+      if (response.status === 200) {
+        const teams = TeamTableLogic.convertResponseTo2dArray(
+          response.data.teams,
+        );
+
+        tableStore.setFormedTeams(teams);
+        router.push('/view-teams');
+        teamFormationStore.closeTeamFormationModal();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
