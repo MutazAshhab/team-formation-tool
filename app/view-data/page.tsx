@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { Button } from '@/components/Buttons';
-import { DataTable } from '@/components/Table/DataTable';
+import { DataTable } from '@/components/Tables/DataTable/DataTable';
 import { TeamFormationStepsDialog } from '@/components/TeamFormationDialog/TeamFormationStepsDialog';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
