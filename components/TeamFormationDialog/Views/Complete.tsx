@@ -8,6 +8,7 @@ import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -75,7 +76,7 @@ export function Complete() {
           </Button>
 
           <Button
-            icon={<ArrowRightIcon className="h-6 w-6" />}
+            icon={<UsersIcon className="h-6 w-6" />}
             iconPosition="right"
             onClick={() => {
               if (algorithmStore.chosenAlgorithm === 'default') {
@@ -85,7 +86,7 @@ export function Complete() {
               }
             }}
           >
-            Next
+            Form teams
           </Button>
         </div>
       </DialogFooter>
