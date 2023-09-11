@@ -1,9 +1,11 @@
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
+import { TeamTableLogic } from '@/logic/TeamTableLogic';
 import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
 
@@ -12,6 +14,7 @@ export function Complete() {
   const algorithmStore = useAlgorithmStore();
   const defaultAlgorithmStore = useDefaultAlgorithmStore();
   const tableStore = useTableStore();
+  const router = useRouter();
 
   async function postDefaultAlgorithm() {
     const algorithmData = {
@@ -22,12 +25,23 @@ export function Complete() {
       agreeableness: defaultAlgorithmStore.agreeableness,
     };
 
-    const data = await axios.post('http://127.0.0.1:8000/default_algorithm', {
-      mapping: algorithmData,
-      csv_data: tableStore.data,
-    });
+    const response = await axios.post(
+      'http://127.0.0.1:8000/default_algorithm',
+      {
+        mapping: algorithmData,
+        csv_data: tableStore.data,
+      },
+    );
 
-    console.log({ data });
+    if (response.status === 200) {
+      const teams = TeamTableLogic.convertResponseTo2dArray(
+        response.data.teams,
+      );
+
+      tableStore.setFormedTeams(teams);
+      router.push('/view-teams');
+      teamFormationStore.closeTeamFormationModal();
+    }
   }
 
   async function postCustomAlgorithm() {}
