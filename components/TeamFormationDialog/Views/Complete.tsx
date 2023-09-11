@@ -65,10 +65,9 @@ export function Complete() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Complete"
+        title="Algorithm Configuration Summary"
       />
       <DialogContent>
-        {/* INSET SUMMARY HERE */}
         <AlertBox variant="info">
           <DefaultAlgorithmSummary />
         </AlertBox>
