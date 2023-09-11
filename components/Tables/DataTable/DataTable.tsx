@@ -12,7 +12,7 @@ export function DataTable() {
 
   return (
     <table className="min-w-full bg-white text-left">
-      <thead className="bg-gray-100">
+      <thead className="bg-gray-200">
         <tr>
           <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider">
             #
@@ -31,7 +31,7 @@ export function DataTable() {
         {rows.map((row, index) => (
           <tr
             key={index}
-            className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+            className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
           >
             <td className="py-2 px-4 border-b border-gray-300 text-gray-800">
               {index}

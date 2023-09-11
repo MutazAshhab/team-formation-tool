@@ -40,7 +40,7 @@ export default function ViewCSVPage() {
           </Button>
 
           {/* Data Table Section */}
-          <div className="bg-gray-100 p-4 rounded overflow-x-auto">
+          <div className="bg-gray-200 p-4 rounded overflow-x-auto">
             <DataTable />
           </div>
         </div>
