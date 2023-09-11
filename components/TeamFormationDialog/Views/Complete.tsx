@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { AlertBox } from '@/components/AlertBoxes/AlertBox';
 import { Button } from '@/components/Buttons/Button/Button';
 import { DialogContent } from '@/components/Dialog/DialogContent';
@@ -16,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { DefaultAlgorithmSummary } from './DefaultAlgorithm/AlgorithmSummary';
 
 export function Complete() {
+  const [isLoading, setIsLoading] = useState(false);
   const teamFormationStore = useTeamFormationStepsStore();
   const algorithmStore = useAlgorithmStore();
   const defaultAlgorithmStore = useDefaultAlgorithmStore();
@@ -71,6 +74,7 @@ export function Complete() {
             icon={<ArrowLeftIcon className="h-6 w-6" />}
             iconPosition="left"
             onClick={teamFormationStore.goToPreviousView}
+            disabled={isLoading}
           >
             Back
           </Button>
@@ -78,12 +82,15 @@ export function Complete() {
           <Button
             icon={<UsersIcon className="h-6 w-6" />}
             iconPosition="right"
-            onClick={() => {
+            loading={isLoading}
+            onClick={async () => {
+              setIsLoading(true);
               if (algorithmStore.chosenAlgorithm === 'default') {
-                postDefaultAlgorithm();
+                await postDefaultAlgorithm();
               } else if (algorithmStore.chosenAlgorithm === 'custom') {
-                postCustomAlgorithm();
+                await postCustomAlgorithm();
               }
+              setIsLoading(false);
             }}
           >
             Form teams
