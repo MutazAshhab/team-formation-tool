@@ -9,24 +9,24 @@ import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
-import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
-import { ColumnValuesErrorBox } from '../ColumnValuesErrorBox';
-import { ColumnValuesErrorType } from '../types';
+import { TeamFormationStepsDialogFooter } from '../../../TeamFormationStepsDialogFooter';
+import { ColumnValuesErrorBox } from '../../ColumnValuesErrorBox';
+import { ColumnValuesErrorType } from '../../types';
 
-export function Gender() {
+export function FirstLanguage() {
   const teamFormationStore = useTeamFormationStepsStore();
   const defaultAlgorithmStore = useDefaultAlgorithmStore();
   const tableStore = useTableStore();
   const [error, setError] = useState<ColumnValuesErrorType>(null);
 
-  const showValueSelection = defaultAlgorithmStore.gender.name !== null;
+  const showValueSelection = defaultAlgorithmStore.first_language.name !== null;
 
-  const possibleGenderValues = useMemo(() => {
+  const possibleEnglishValues = useMemo(() => {
     return getUniqueColumnValues(
       tableStore.data,
-      defaultAlgorithmStore.gender.name,
+      defaultAlgorithmStore.first_language.name,
     );
-  }, [defaultAlgorithmStore.gender, tableStore.data]);
+  }, [defaultAlgorithmStore.first_language, tableStore.data]);
 
   function turnOffError(errorType: ColumnValuesErrorType) {
     if (error === errorType) {
@@ -38,29 +38,29 @@ export function Gender() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Gender"
+        title="First Language"
       />
       <DialogContent className="flex flex-col gap-4">
         <ColumnNameSelector
-          label="Select the header that maps to Gender"
+          label="Select the header that maps to English"
           onSelect={value => {
-            defaultAlgorithmStore.setGender({
+            defaultAlgorithmStore.setFirstLanguage({
               name: value,
               values: [],
             });
 
             turnOffError('name');
           }}
-          selectedValue={defaultAlgorithmStore.gender.name}
+          selectedValue={defaultAlgorithmStore.first_language.name}
         />
         {showValueSelection && (
           <CheckboxList
-            label="Select the genders which you want to be spread out in the teams"
-            items={possibleGenderValues}
-            selectedItems={defaultAlgorithmStore.gender.values}
+            label="Select the values which you want to map to English"
+            items={possibleEnglishValues}
+            selectedItems={defaultAlgorithmStore.first_language.values}
             setSelectedItems={values => {
-              defaultAlgorithmStore.setGender({
-                ...defaultAlgorithmStore.gender,
+              defaultAlgorithmStore.setFirstLanguage({
+                ...defaultAlgorithmStore.first_language,
                 values: values,
               });
 
@@ -72,12 +72,12 @@ export function Gender() {
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={() => {
-          if (defaultAlgorithmStore.gender.name === null) {
+          if (defaultAlgorithmStore.first_language.name === null) {
             setError('name');
             return;
           }
 
-          if (defaultAlgorithmStore.gender.values.length === 0) {
+          if (defaultAlgorithmStore.first_language.values.length === 0) {
             setError('value');
             return;
           }

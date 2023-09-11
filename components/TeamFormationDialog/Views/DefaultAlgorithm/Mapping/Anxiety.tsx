@@ -8,11 +8,11 @@ import { MinMaxValues } from '@/components/MISC/MinMaxValues';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
-import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
-import { ColumnValuesErrorBox } from '../ColumnValuesErrorBox';
-import { ColumnValuesErrorType } from '../types';
+import { TeamFormationStepsDialogFooter } from '../../../TeamFormationStepsDialogFooter';
+import { ColumnValuesErrorBox } from '../../ColumnValuesErrorBox';
+import { ColumnValuesErrorType } from '../../types';
 
-export function Agreeableness() {
+export function Anxiety() {
   const teamFormationStore = useTeamFormationStepsStore();
   const defaultAlgorithmStore = useDefaultAlgorithmStore();
   const [error, setError] = useState<ColumnValuesErrorType>(null);
@@ -23,20 +23,19 @@ export function Agreeableness() {
     }
   }
 
-  const showMinMaxValueSelector =
-    defaultAlgorithmStore.agreeableness.name !== null;
+  const showMinMaxValueSelector = defaultAlgorithmStore.anxiety.name !== null;
 
   return (
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Agreeableness"
+        title="Anxiety"
       />
       <DialogContent className="flex flex-col gap-4">
         <ColumnNameSelector
-          label="Select the header that maps to Agreeableness"
+          label="Select the header that maps to Anxiety"
           onSelect={value => {
-            defaultAlgorithmStore.setAgreeableness({
+            defaultAlgorithmStore.setAnxiety({
               name: value,
               min: null,
               max: null,
@@ -44,17 +43,17 @@ export function Agreeableness() {
 
             turnOffError('name');
           }}
-          selectedValue={defaultAlgorithmStore.agreeableness.name}
+          selectedValue={defaultAlgorithmStore.anxiety.name}
         />
 
         {showMinMaxValueSelector && (
           <MinMaxValues
-            label="Set the minimum and maximum possible values for Agreeableness"
-            minValue={defaultAlgorithmStore.agreeableness.min}
-            maxValue={defaultAlgorithmStore.agreeableness.max}
+            label="Set the minimum and maximum possible values for Anxiety"
+            minValue={defaultAlgorithmStore.anxiety.min}
+            maxValue={defaultAlgorithmStore.anxiety.max}
             onSelect={(min, max) => {
-              defaultAlgorithmStore.setAgreeableness({
-                name: defaultAlgorithmStore.agreeableness.name,
+              defaultAlgorithmStore.setAnxiety({
+                name: defaultAlgorithmStore.anxiety.name,
                 min,
                 max,
               });
@@ -64,28 +63,28 @@ export function Agreeableness() {
             }}
           />
         )}
-        {defaultAlgorithmStore.agreeableness.name && (
+        {defaultAlgorithmStore.anxiety.name && (
           <AlertBox variant="info">
-            Please make sure that all the values within the
-            <strong>{defaultAlgorithmStore.agreeableness.name}</strong> column
-            are numbers.
+            Please make sure that all the values within the{' '}
+            <strong>{defaultAlgorithmStore.anxiety.name}</strong> column are
+            numbers.
           </AlertBox>
         )}
         <ColumnValuesErrorBox type={error} />
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={() => {
-          if (defaultAlgorithmStore.agreeableness.name === null) {
+          if (defaultAlgorithmStore.anxiety.name === null) {
             setError('name');
             return;
           }
 
-          if (defaultAlgorithmStore.agreeableness.min === null) {
+          if (defaultAlgorithmStore.anxiety.min === null) {
             setError('min');
             return;
           }
 
-          if (defaultAlgorithmStore.agreeableness.max === null) {
+          if (defaultAlgorithmStore.anxiety.max === null) {
             setError('max');
             return;
           }

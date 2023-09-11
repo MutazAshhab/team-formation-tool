@@ -2,6 +2,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 interface AlertBoxProps {
   variant: 'info' | 'error';
+  title?: string;
   children: React.ReactNode;
 }
 
@@ -25,6 +26,12 @@ export function AlertBox(props: AlertBoxProps) {
       className={'p-4 rounded-xl'}
       style={{ backgroundColor: colors.background }}
     >
+      {props.title && (
+        <>
+          <p className="text-xl">{props.title}</p>
+          <br />
+        </>
+      )}
       <div className="flex items-center">
         <div className="mr-4">
           <ExclamationTriangleIcon className={'h-6 w-6'} color={colors.icon} />

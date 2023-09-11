@@ -1,15 +1,24 @@
+import { useState } from 'react';
+
+import { AlertBox } from '@/components/AlertBoxes/AlertBox';
+import { Button } from '@/components/Buttons/Button/Button';
+import { DialogContent } from '@/components/Dialog/DialogContent';
+import { DialogFooter } from '@/components/Dialog/DialogFooter';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { TeamTableLogic } from '@/logic/TeamTableLogic';
 import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
+import { UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
+import { DefaultAlgorithmSummary } from './DefaultAlgorithm/AlgorithmSummary';
 
 export function Complete() {
+  const [isLoading, setIsLoading] = useState(false);
   const teamFormationStore = useTeamFormationStepsStore();
   const algorithmStore = useAlgorithmStore();
   const defaultAlgorithmStore = useDefaultAlgorithmStore();
@@ -25,22 +34,28 @@ export function Complete() {
       agreeableness: defaultAlgorithmStore.agreeableness,
     };
 
-    const response = await axios.post(
-      'http://127.0.0.1:8000/default_algorithm',
-      {
-        mapping: algorithmData,
-        csv_data: tableStore.data,
-      },
-    );
-
-    if (response.status === 200) {
-      const teams = TeamTableLogic.convertResponseTo2dArray(
-        response.data.teams,
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/default_algorithm',
+        {
+          mapping: algorithmData,
+          csv_data: tableStore.data,
+        },
       );
 
-      tableStore.setFormedTeams(teams);
-      router.push('/view-teams');
-      teamFormationStore.closeTeamFormationModal();
+      if (response.status === 200) {
+        const teams = TeamTableLogic.convertResponseTo2dArray(
+          response.data.teams,
+        );
+
+        tableStore.setFormedTeams(teams);
+        router.push('/view-teams');
+        teamFormationStore.closeTeamFormationModal();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -50,46 +65,43 @@ export function Complete() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Complete"
+        title="Algorithm Configuration Summary"
       />
-      <TeamFormationStepsDialogFooter
-        onNextClick={() => {
-          if (algorithmStore.chosenAlgorithm === 'default') {
-            postDefaultAlgorithm();
-          } else if (algorithmStore.chosenAlgorithm === 'custom') {
-            postCustomAlgorithm();
-          }
-        }}
-      />
+      <DialogContent>
+        <AlertBox variant="info">
+          <DefaultAlgorithmSummary />
+        </AlertBox>
+      </DialogContent>
+
+      <DialogFooter>
+        <div className="flex justify-between items-center">
+          <Button
+            icon={<ArrowLeftIcon className="h-6 w-6" />}
+            iconPosition="left"
+            onClick={teamFormationStore.goToPreviousView}
+            disabled={isLoading}
+          >
+            Back
+          </Button>
+
+          <Button
+            icon={<UsersIcon className="h-6 w-6" />}
+            iconPosition="right"
+            loading={isLoading}
+            onClick={async () => {
+              setIsLoading(true);
+              if (algorithmStore.chosenAlgorithm === 'default') {
+                await postDefaultAlgorithm();
+              } else if (algorithmStore.chosenAlgorithm === 'custom') {
+                await postCustomAlgorithm();
+              }
+              setIsLoading(false);
+            }}
+          >
+            Form teams
+          </Button>
+        </div>
+      </DialogFooter>
     </>
   );
 }
-
-/**
- * algorithmData v 
- * {
-    "gender": {
-        "name": "GENDER",
-        "values": [
-            "F"
-        ]
-    },
-    "first_language": {
-        "name": "NATIONALITY",
-        "values": [
-            "English"
-        ]
-    },
-    "wam": "WAM",
-    "anxiety": {
-        "name": "Anxiety",
-        "min": 0,
-        "max": 5
-    },
-    "agreeableness": {
-        "name": "Agreeableness",
-        "min": 0,
-        "max": 5
-    }
-}
- */
