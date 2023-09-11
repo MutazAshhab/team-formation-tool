@@ -64,32 +64,3 @@ export function Complete() {
     </>
   );
 }
-
-/**
- * algorithmData v 
- * {
-    "gender": {
-        "name": "GENDER",
-        "values": [
-            "F"
-        ]
-    },
-    "first_language": {
-        "name": "NATIONALITY",
-        "values": [
-            "English"
-        ]
-    },
-    "wam": "WAM",
-    "anxiety": {
-        "name": "Anxiety",
-        "min": 0,
-        "max": 5
-    },
-    "agreeableness": {
-        "name": "Agreeableness",
-        "min": 0,
-        "max": 5
-    }
-}
- */
