@@ -33,13 +33,13 @@ export function Complete() {
       },
     );
 
-    if (response.data.status === 'success') {
+    if (response.status === 200) {
       const teams = TeamTableLogic.convertResponseTo2dArray(
         response.data.teams,
       );
 
       tableStore.setFormedTeams(teams);
-      router.push('formed-teams');
+      router.push('/view-teams');
     }
   }
 
