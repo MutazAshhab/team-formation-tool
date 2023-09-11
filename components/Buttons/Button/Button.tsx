@@ -26,8 +26,14 @@ export function Button({
     className ?? '',
   ].join(' ');
 
+  function handleClick() {
+    if (!loading) {
+      onClick;
+    }
+  }
+
   return (
-    <button className={classNames} onClick={onClick} disabled={disabled}>
+    <button className={classNames} onClick={handleClick} disabled={disabled}>
       <div className="flex flex-row gap-2">
         {loading ? (
           'Loading'
