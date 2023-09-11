@@ -1,13 +1,18 @@
+import { AlertBox } from '@/components/AlertBoxes/AlertBox';
+import { Button } from '@/components/Buttons/Button/Button';
+import { DialogContent } from '@/components/Dialog/DialogContent';
+import { DialogFooter } from '@/components/Dialog/DialogFooter';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { TeamTableLogic } from '@/logic/TeamTableLogic';
 import { useAlgorithmStore } from '@/zustand/useAlgorithmStore';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-import { TeamFormationStepsDialogFooter } from '../TeamFormationStepsDialogFooter';
+import { DefaultAlgorithmSummary } from './DefaultAlgorithm/AlgorithmSummary';
 
 export function Complete() {
   const teamFormationStore = useTeamFormationStepsStore();
@@ -52,15 +57,38 @@ export function Complete() {
         closeModal={teamFormationStore.closeTeamFormationModal}
         title="Complete"
       />
-      <TeamFormationStepsDialogFooter
-        onNextClick={() => {
-          if (algorithmStore.chosenAlgorithm === 'default') {
-            postDefaultAlgorithm();
-          } else if (algorithmStore.chosenAlgorithm === 'custom') {
-            postCustomAlgorithm();
-          }
-        }}
-      />
+      <DialogContent>
+        {/* INSET SUMMARY HERE */}
+        <AlertBox variant="info">
+          <DefaultAlgorithmSummary />
+        </AlertBox>
+      </DialogContent>
+
+      <DialogFooter>
+        <div className="flex justify-between items-center">
+          <Button
+            icon={<ArrowLeftIcon className="h-6 w-6" />}
+            iconPosition="left"
+            onClick={teamFormationStore.goToPreviousView}
+          >
+            Back
+          </Button>
+
+          <Button
+            icon={<ArrowRightIcon className="h-6 w-6" />}
+            iconPosition="right"
+            onClick={() => {
+              if (algorithmStore.chosenAlgorithm === 'default') {
+                postDefaultAlgorithm();
+              } else if (algorithmStore.chosenAlgorithm === 'custom') {
+                postCustomAlgorithm();
+              }
+            }}
+          >
+            Next
+          </Button>
+        </div>
+      </DialogFooter>
     </>
   );
 }
