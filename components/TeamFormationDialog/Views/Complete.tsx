@@ -40,6 +40,7 @@ export function Complete() {
 
       tableStore.setFormedTeams(teams);
       router.push('/view-teams');
+      teamFormationStore.closeTeamFormationModal();
     }
   }
 
