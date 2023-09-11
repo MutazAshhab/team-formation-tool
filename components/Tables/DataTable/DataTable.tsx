@@ -11,7 +11,7 @@ export function DataTable() {
   const rows = tableStore.data.slice(1);
 
   return (
-    <table className="min-w-full bg-white text-left ">
+    <table className="min-w-full bg-white text-left">
       <thead className="bg-gray-100">
         <tr>
           <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-gray-500 tracking-wider">
