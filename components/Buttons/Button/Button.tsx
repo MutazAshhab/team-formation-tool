@@ -22,7 +22,8 @@ export function Button({
 }: ButtonProps) {
   const classNames = [
     'inline-flex align-self-start max-w-fit cursor-pointer bg-blue-500 text-white px-4 py-2 rounded duration-300 ease-in-out',
-    disabled || loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700',
+    disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700',
+    loading ? 'cursor-wait bg-blue-700' : '',
     className ?? '',
   ].join(' ');
 
