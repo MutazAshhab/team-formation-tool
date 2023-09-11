@@ -8,12 +8,15 @@ import { TeamFormationStepsDialog } from '@/components/TeamFormationDialog/TeamF
 import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import { PuzzlePieceIcon } from '@heroicons/react/20/solid';
+import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
 
 export default function ViewCSVPage() {
   const { openTeamFormationModal } = useTeamFormationStepsStore();
   const tableStore = useTableStore();
   const router = useRouter();
+
+  const showGoToTeamFormationButton = tableStore.formedTeams.length > 0;
 
   useEffect(() => {
     if (tableStore.data.length === 0) {
@@ -30,14 +33,26 @@ export default function ViewCSVPage() {
             View Uploaded CSV Data
           </h1>
 
-          <Button
-            className="mb-4"
-            icon={<PuzzlePieceIcon className="h-6 w-6 inline" />}
-            iconPosition="right"
-            onClick={openTeamFormationModal}
-          >
-            Form Teams
-          </Button>
+          <div className="flex flex-row justify-between">
+            <Button
+              className="mb-4"
+              icon={<PuzzlePieceIcon className="h-6 w-6 inline" />}
+              iconPosition="right"
+              onClick={openTeamFormationModal}
+            >
+              Form Teams
+            </Button>
+            {showGoToTeamFormationButton && (
+              <Button
+                className="mb-4"
+                icon={<ArrowRightIcon className="h-6 w-6" />}
+                iconPosition="right"
+                onClick={() => router.push('/view-teams')}
+              >
+                View formed teams
+              </Button>
+            )}
+          </div>
 
           {/* Data Table Section */}
           <div className="bg-gray-200 p-4 rounded overflow-x-auto">
