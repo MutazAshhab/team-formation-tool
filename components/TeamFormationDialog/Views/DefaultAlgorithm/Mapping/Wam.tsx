@@ -7,9 +7,9 @@ import { ColumnNameSelector } from '@/components/MISC/ColumnNameSelector';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
-import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
-import { ColumnValuesErrorBox } from '../ColumnValuesErrorBox';
-import { ColumnValuesErrorType } from '../types';
+import { TeamFormationStepsDialogFooter } from '../../../TeamFormationStepsDialogFooter';
+import { ColumnValuesErrorBox } from '../../ColumnValuesErrorBox';
+import { ColumnValuesErrorType } from '../../types';
 
 export function Wam() {
   const teamFormationStore = useTeamFormationStepsStore();

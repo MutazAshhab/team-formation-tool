@@ -5,12 +5,12 @@ import { DialogContainer } from '../Dialog/DialogContainer';
 import { Complete } from './Views/Complete';
 import { CustomAlgorithmExplainer } from './Views/CustomAlgorithmExplainer';
 import { CustomAlgorithmMapping } from './Views/CustomAlgorithmMapping';
+import { Agreeableness } from './Views/DefaultAlgorithm/Mapping/Agreeableness';
+import { Anxiety } from './Views/DefaultAlgorithm/Mapping/Anxiety';
+import { FirstLanguage } from './Views/DefaultAlgorithm/Mapping/FirstLanguage';
+import { Gender } from './Views/DefaultAlgorithm/Mapping/Gender';
+import { Wam } from './Views/DefaultAlgorithm/Mapping/Wam';
 import { DefaultAlgorithmExplainer } from './Views/DefaultAlgorithmExplainer';
-import { Agreeableness } from './Views/DefaultAlgorithmMapping/Agreeableness';
-import { Anxiety } from './Views/DefaultAlgorithmMapping/Anxiety';
-import { FirstLanguage } from './Views/DefaultAlgorithmMapping/FirstLanguage';
-import { Gender } from './Views/DefaultAlgorithmMapping/Gender';
-import { Wam } from './Views/DefaultAlgorithmMapping/Wam';
 import { DeveloperError } from './Views/DeveloperError';
 import { Explainer } from './Views/Explainer';
 

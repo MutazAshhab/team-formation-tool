@@ -8,11 +8,11 @@ import { MinMaxValues } from '@/components/MISC/MinMaxValues';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
-import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
-import { ColumnValuesErrorBox } from '../ColumnValuesErrorBox';
-import { ColumnValuesErrorType } from '../types';
+import { TeamFormationStepsDialogFooter } from '../../../TeamFormationStepsDialogFooter';
+import { ColumnValuesErrorBox } from '../../ColumnValuesErrorBox';
+import { ColumnValuesErrorType } from '../../types';
 
-export function Anxiety() {
+export function Agreeableness() {
   const teamFormationStore = useTeamFormationStepsStore();
   const defaultAlgorithmStore = useDefaultAlgorithmStore();
   const [error, setError] = useState<ColumnValuesErrorType>(null);
@@ -23,19 +23,20 @@ export function Anxiety() {
     }
   }
 
-  const showMinMaxValueSelector = defaultAlgorithmStore.anxiety.name !== null;
+  const showMinMaxValueSelector =
+    defaultAlgorithmStore.agreeableness.name !== null;
 
   return (
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Anxiety"
+        title="Agreeableness"
       />
       <DialogContent className="flex flex-col gap-4">
         <ColumnNameSelector
-          label="Select the header that maps to Anxiety"
+          label="Select the header that maps to Agreeableness"
           onSelect={value => {
-            defaultAlgorithmStore.setAnxiety({
+            defaultAlgorithmStore.setAgreeableness({
               name: value,
               min: null,
               max: null,
@@ -43,17 +44,17 @@ export function Anxiety() {
 
             turnOffError('name');
           }}
-          selectedValue={defaultAlgorithmStore.anxiety.name}
+          selectedValue={defaultAlgorithmStore.agreeableness.name}
         />
 
         {showMinMaxValueSelector && (
           <MinMaxValues
-            label="Set the minimum and maximum possible values for Anxiety"
-            minValue={defaultAlgorithmStore.anxiety.min}
-            maxValue={defaultAlgorithmStore.anxiety.max}
+            label="Set the minimum and maximum possible values for Agreeableness"
+            minValue={defaultAlgorithmStore.agreeableness.min}
+            maxValue={defaultAlgorithmStore.agreeableness.max}
             onSelect={(min, max) => {
-              defaultAlgorithmStore.setAnxiety({
-                name: defaultAlgorithmStore.anxiety.name,
+              defaultAlgorithmStore.setAgreeableness({
+                name: defaultAlgorithmStore.agreeableness.name,
                 min,
                 max,
               });
@@ -63,28 +64,28 @@ export function Anxiety() {
             }}
           />
         )}
-        {defaultAlgorithmStore.anxiety.name && (
+        {defaultAlgorithmStore.agreeableness.name && (
           <AlertBox variant="info">
             Please make sure that all the values within the{' '}
-            <strong>{defaultAlgorithmStore.anxiety.name}</strong> column are
-            numbers.
+            <strong>{defaultAlgorithmStore.agreeableness.name}</strong> column
+            are numbers.
           </AlertBox>
         )}
         <ColumnValuesErrorBox type={error} />
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={() => {
-          if (defaultAlgorithmStore.anxiety.name === null) {
+          if (defaultAlgorithmStore.agreeableness.name === null) {
             setError('name');
             return;
           }
 
-          if (defaultAlgorithmStore.anxiety.min === null) {
+          if (defaultAlgorithmStore.agreeableness.min === null) {
             setError('min');
             return;
           }
 
-          if (defaultAlgorithmStore.anxiety.max === null) {
+          if (defaultAlgorithmStore.agreeableness.max === null) {
             setError('max');
             return;
           }
