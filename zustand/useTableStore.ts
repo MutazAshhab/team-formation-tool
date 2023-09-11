@@ -5,6 +5,7 @@ type TableStore = {
   setTable: (data: string[][]) => void;
   formedTeams: string[][];
   setFormedTeams: (data: string[][]) => void;
+  reset: () => void;
 };
 
 export const useTableStore = create<TableStore>(set => ({
@@ -15,5 +16,8 @@ export const useTableStore = create<TableStore>(set => ({
   formedTeams: [],
   setFormedTeams: (formedTeams: string[][]) => {
     set({ formedTeams });
+  },
+  reset: () => {
+    set({ data: [], formedTeams: [] });
   },
 }));
