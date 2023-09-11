@@ -1,3 +1,4 @@
+import { Badge } from '@/components/Badge/Badge';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 
 export function DefaultAlgorithmSummary() {
@@ -14,77 +15,66 @@ export function DefaultAlgorithmSummary() {
 
   return (
     <>
-      <h3>Algorithm Settings Summary</h3>
-      <p>
-        The team formation algorithm is configured with the following criteria
-        to ensure diverse and balanced teams:
-      </p>
       {defaultAlgorithmStore.gender && (
-        <li>
-          <strong>
-            Gender Diversity (Column: {defaultAlgorithmStore.gender.name}
-            ):
-          </strong>{' '}
-          At least one member of the gender{' '}
-          {defaultAlgorithmStore.gender.values.join(', ')} is required in each
-          team.
-        </li>
+        <>
+          <p>
+            The
+            <Badge>{defaultAlgorithmStore.gender.name}</Badge>
+            column will be used and 2 students of the values
+            <Badge>{defaultAlgorithmStore.gender.values.join(', ')}</Badge> will
+            be included in each team.
+          </p>
+          <br />
+        </>
       )}
       {defaultAlgorithmStore.first_language && (
-        <li>
-          <strong>
-            Language Diversity (Column:{' '}
-            {defaultAlgorithmStore.first_language.name}):
-          </strong>{' '}
-          Teams will include members with different first languages,
-          prioritizing those who do not speak{' '}
-          {defaultAlgorithmStore.first_language.values.join(', ')} as their
-          first language.
-        </li>
+        <>
+          <p>
+            The
+            <Badge>{defaultAlgorithmStore.first_language.name}</Badge>
+            column will be used and 2 students not of the values
+            <Badge>
+              {defaultAlgorithmStore.first_language.values.join(', ')}
+            </Badge>{' '}
+            will be included in each team.
+          </p>
+          <br />
+        </>
       )}
       {defaultAlgorithmStore.wam && (
-        <li>
-          <strong>
-            WAM (Weighted Average Mark) (Column: {defaultAlgorithmStore.wam}
-            ):
-          </strong>{' '}
-          The algorithm will consider the WAM score for each student to ensure
-          academic diversity within the teams.
-        </li>
+        <>
+          <p>
+            The
+            <Badge>{defaultAlgorithmStore.wam}</Badge>
+            column will be used for the values of the students&apos; WAM and the
+            largest possible WAM gap in a team will be 20 points.
+          </p>
+          <br />
+        </>
       )}
       {defaultAlgorithmStore.anxiety && (
-        <li>
-          <strong>
-            Anxiety Level (Column: {defaultAlgorithmStore.anxiety.name}):
-          </strong>{' '}
-          Each team will have at most one member with high anxiety, defined as a
-          score of{' '}
-          {Math.ceil(
-            (defaultAlgorithmStore.anxiety.max -
-              defaultAlgorithmStore.anxiety.min) *
-              0.75 +
-              defaultAlgorithmStore.anxiety.min,
-          )}{' '}
-          or above on a scale of {defaultAlgorithmStore.anxiety.min} to{' '}
-          {defaultAlgorithmStore.anxiety.max}.
-        </li>
+        <>
+          <p>
+            The
+            <Badge>{defaultAlgorithmStore.anxiety.name}</Badge>
+            column will be used for the values of the students&apos; anxiety
+            level. Each team will have atleast 1 student with a high anxiety
+            level
+          </p>
+          <br />
+        </>
       )}
       {defaultAlgorithmStore.agreeableness && (
-        <li>
-          <strong>
-            Agreeableness (Column: {defaultAlgorithmStore.agreeableness.name}):
-          </strong>{' '}
-          Each team is required to have at least one member with high
-          agreeableness, defined as a score of{' '}
-          {Math.ceil(
-            (defaultAlgorithmStore.agreeableness.max -
-              defaultAlgorithmStore.agreeableness.min) *
-              0.75 +
-              defaultAlgorithmStore.agreeableness.min,
-          )}{' '}
-          or above on a scale of {defaultAlgorithmStore.agreeableness.min} to{' '}
-          {defaultAlgorithmStore.agreeableness.max}.
-        </li>
+        <>
+          <p>
+            The
+            <Badge>{defaultAlgorithmStore.agreeableness.name}</Badge>
+            column will be used for the values of the students&apos;
+            agreeableness level. Each team will have atleast 1 student with a
+            high agreeableness level
+          </p>
+          <br />
+        </>
       )}
     </>
   );
