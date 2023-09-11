@@ -26,9 +26,9 @@ export function Button({
     className ?? '',
   ].join(' ');
 
-  function handleClick() {
+  function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     if (!loading) {
-      onClick;
+      onClick?.(e);
     }
   }
 
