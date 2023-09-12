@@ -160,7 +160,7 @@ def genetic_team_formation(csv_file, column_mapping: AlgorithmDataMapping):
     population = toolbox.population(n=300)
 
     # Number of generations
-    ngen = 40
+    ngen = 1000
 
     # Probability of mating two individuals
     cxpb = 0.5

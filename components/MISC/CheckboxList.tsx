@@ -39,7 +39,7 @@ export function CheckboxList(props: CheckboxListProps) {
             />
             <label
               htmlFor={`bordered-checkbox-${idx}`}
-              className="w-full py-2 text-sm font-medium text-gray-700 pr-4 cursor-pointer"
+              className="w-full py-2 text-sm font-medium text-gray-700 pr-4 cursor-pointer select-none"
             >
               {item}
             </label>

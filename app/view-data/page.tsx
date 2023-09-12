@@ -49,7 +49,7 @@ export default function ViewCSVPage() {
               iconPosition="left"
               onClick={handleUploadDifferentDataClick}
             >
-              Upload Different data
+              Upload different data
             </Button>
             {showGoToTeamFormationButton && (
               <Button
