@@ -3,9 +3,8 @@ import { views } from '@/zustand/useTeamFormationStepsStore';
 
 import { DialogContainer } from '../Dialog/DialogContainer';
 import { Complete } from './Views/Complete';
-import { ColumnConstraintSetter } from './Views/CustomAlgorithm/Constraints/ColumnConstraintSetter';
+import { AddConstraintView } from './Views/CustomAlgorithm/AddConstraintView';
 import { CustomAlgorithmExplainer } from './Views/CustomAlgorithmExplainer';
-import { CustomAlgorithmMapping } from './Views/CustomAlgorithmMapping';
 import { Agreeableness } from './Views/DefaultAlgorithm/Mapping/Agreeableness';
 import { Anxiety } from './Views/DefaultAlgorithm/Mapping/Anxiety';
 import { FirstLanguage } from './Views/DefaultAlgorithm/Mapping/FirstLanguage';
@@ -37,8 +36,7 @@ export function TeamFormationStepsDialog() {
       case views.customAlgorithmExplainer:
         return <CustomAlgorithmExplainer />;
       case views.customAlgorithmMapping:
-        return <ColumnConstraintSetter />;
-      // return <CustomAlgorithmMapping />;
+        return <AddConstraintView />;
       case views.complete:
         return <Complete />;
       case views.developerError:
