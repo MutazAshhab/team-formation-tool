@@ -6,6 +6,7 @@ interface ButtonProps extends NativeButtonProps {
   iconPosition?: 'left' | 'right';
   loading?: boolean;
   disabled?: boolean;
+  variant?: 'primary' | 'danger';
 }
 
 type NativeButtonProps = AllHTMLAttributes<HTMLButtonElement>;
@@ -18,12 +19,32 @@ export function Button({
   className,
   loading = false,
   disabled = false,
+  variant = 'primary',
   ...rest
 }: ButtonProps) {
+  const bgColorMap = {
+    primary: 'bg-blue-500',
+    danger: 'bg-red-500',
+  };
+
+  const bgColorDarkMap = {
+    primary: 'bg-blue-700',
+    danger: 'bg-red-700',
+  };
+
+  const bgColorHoverMap = {
+    primary: 'hover:bg-blue-700',
+    danger: 'hover:bg-red-700',
+  };
+
+  const bgColor = bgColorMap[variant];
+  const bgColorDark = bgColorDarkMap[variant];
+  const bgColorHover = bgColorHoverMap[variant];
+
   const classNames = [
-    'inline-flex align-self-start max-w-fit cursor-pointer bg-blue-500 text-white px-4 py-2 rounded duration-300 ease-in-out',
-    disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700',
-    loading ? 'cursor-wait bg-blue-700' : '',
+    `inline-flex align-self-start max-w-fit cursor-pointer ${bgColor} text-white px-4 py-2 rounded duration-300 ease-in-out`,
+    disabled ? 'opacity-50 cursor-not-allowed' : bgColorHover,
+    loading ? `cursor-wait ${bgColorDark}` : '',
     className ?? '',
   ].join(' ');
 
