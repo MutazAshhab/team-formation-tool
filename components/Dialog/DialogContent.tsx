@@ -4,6 +4,8 @@ interface DialogContentProps {
 }
 
 export function DialogContent(props: DialogContentProps) {
-  const classNames = ['h-[600px]', props.className].join(' ');
+  const classNames = ['h-[600px]', 'overflow-y-auto', props.className].join(
+    ' ',
+  );
   return <div className={classNames}>{props.children}</div>;
 }
