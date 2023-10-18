@@ -33,9 +33,7 @@ export function ColumnConstraintSection() {
 
       {/* <ConstraintSelector ></ConstraintSelector> */}
 
-      <div className="border p-4 rounded">
-        <ConstraintSummary constraints={constraints}></ConstraintSummary>
-      </div>
+      <ConstraintSummary constraints={constraints}></ConstraintSummary>
     </div>
   );
 }
