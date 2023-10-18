@@ -36,10 +36,6 @@ export function ColumnConstraintSection() {
       <div className="border p-4 rounded">
         <ConstraintSummary constraints={constraints}></ConstraintSummary>
       </div>
-
-      <button className="mt-4 bg-green-500 text-white p-2 rounded">
-        Submit Constraints
-      </button>
     </div>
   );
 }
