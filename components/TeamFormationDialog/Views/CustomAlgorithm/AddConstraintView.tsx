@@ -5,7 +5,7 @@ import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
 import { TeamFormationStepsDialogFooter } from '../../TeamFormationStepsDialogFooter';
-import { ColumnConstraintSection } from './Constraints/ColumnConstraintSection';
+import { ConstraintManager } from './Constraints/ConstraintsManager';
 
 export function AddConstraintView() {
   const teamFormationStore = useTeamFormationStepsStore();
@@ -17,7 +17,7 @@ export function AddConstraintView() {
         title="Custom Algorithm Constraints"
       />
       <DialogContent>
-        <ColumnConstraintSection />
+        <ConstraintManager />
       </DialogContent>
       <TeamFormationStepsDialogFooter
         onNextClick={teamFormationStore.gotoNextView}
