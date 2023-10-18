@@ -1,15 +1,15 @@
 import React from 'react';
 
-interface ConstraintSelectorProps {
-  onConstraintChange: (type: string, value: string | number) => void;
-  selectedType?: string;
-  selectedValue?: string | number;
-}
-
 export interface Constraint {
   column: string | null;
   type: string;
   value: string | number;
+}
+
+interface ConstraintSelectorProps {
+  onConstraintChange: (type: string, value: string | number) => void;
+  selectedType?: string;
+  selectedValue?: string | number;
 }
 
 export function ConstraintSelector({
