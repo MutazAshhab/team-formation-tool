@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
+import { Button } from '@/components/Buttons';
 import { ColumnNameSelector } from '@/components/MISC/ColumnNameSelector';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
 
 import { ConstraintSelector } from './ConstraintSelector';
 
@@ -24,12 +26,15 @@ export function ColumnConstraintSection(props: ColumnConstraintSectionProps) {
 
   return (
     <div className="flex flex-col gap-4 border border-gray-200 rounded-lg pt-2 pl-2 pb-2">
-      <button
-        className="text-red-500"
+      <Button
+        iconPosition="left"
+        icon={<MinusCircleIcon className="h-6 w-6" />}
+        variant="danger"
         onClick={() => props.removeConstraint(props.index)}
       >
-        Remove
-      </button>
+        Remove Constraint
+      </Button>
+
       <ColumnNameSelector
         label="Select the column to apply the constraint on"
         onSelect={value =>
