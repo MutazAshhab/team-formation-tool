@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { DialogContent } from '@/components/Dialog/DialogContent';
-import { DialogFooter } from '@/components/Dialog/DialogFooter';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 
@@ -15,7 +14,7 @@ export function AddConstraintView() {
     <>
       <DialogHeader
         closeModal={teamFormationStore.closeTeamFormationModal}
-        title="Gender"
+        title="Custom Algorithm Constraints"
       />
       <DialogContent>
         <ColumnConstraintSection />
