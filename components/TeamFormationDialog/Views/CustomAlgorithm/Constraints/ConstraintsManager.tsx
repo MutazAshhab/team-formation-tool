@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button } from '@/components/Buttons';
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
 import { ColumnConstraintSection } from './ColumnConstraintSection';
 import { Constraint } from './ConstraintSelector';
@@ -47,10 +47,10 @@ export function ConstraintManager() {
 
       <Button
         iconPosition="left"
-        icon={<PlusIcon className="h-6 w-6" />}
+        icon={<PlusCircleIcon className="h-6 w-6" />}
         onClick={addConstraint}
       >
-        Add new constraint
+        Add Constraint
       </Button>
 
       <ConstraintSummary constraints={constraints} />
