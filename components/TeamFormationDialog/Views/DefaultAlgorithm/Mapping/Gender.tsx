@@ -4,6 +4,7 @@ import { DialogContent } from '@/components/Dialog/DialogContent';
 import { DialogHeader } from '@/components/Dialog/DialogHeader';
 import { CheckboxList } from '@/components/MISC/CheckboxList';
 import { ColumnNameSelector } from '@/components/MISC/ColumnNameSelector';
+import { useConfirmBeforeLeaving } from '@/hooks/useConfirmBeforeLeaving';
 import { getUniqueColumnValues } from '@/utils/getColumnValues';
 import { useDefaultAlgorithmStore } from '@/zustand/useDefaultAlgorithmStore';
 import { useTableStore } from '@/zustand/useTableStore';
@@ -20,6 +21,8 @@ export function Gender() {
   const [error, setError] = useState<ColumnValuesErrorType>(null);
 
   const showValueSelection = defaultAlgorithmStore.gender.name !== null;
+
+  useConfirmBeforeLeaving();
 
   const possibleGenderValues = useMemo(() => {
     return getUniqueColumnValues(
