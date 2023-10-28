@@ -12,10 +12,10 @@ import { useTableStore } from '@/zustand/useTableStore';
 import { useTeamFormationStepsStore } from '@/zustand/useTeamFormationStepsStore';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 import { DefaultAlgorithmSummary } from './DefaultAlgorithm/AlgorithmSummary';
+import { result } from './result';
 
 export function Complete() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,23 +35,23 @@ export function Complete() {
     };
 
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/default_algorithm',
-        {
-          mapping: algorithmData,
-          csv_data: tableStore.data,
-        },
-      );
+      // const response = await axios.post(
+      //   'http://127.0.0.1:8000/default_algorithm',
+      //   {
+      //     mapping: algorithmData,
+      //     csv_data: tableStore.data,
+      //   },
+      // );
 
-      if (response.status === 200) {
-        const teams = TeamTableLogic.convertResponseTo2dArray(
-          response.data.teams,
-        );
+      // if (response.status === 200) {
+      //   const teams = TeamTableLogic.convertResponseTo2dArray(
+      //     response.data.teams,
+      //   );
 
-        tableStore.setFormedTeams(teams);
-        router.push('/view-teams');
-        teamFormationStore.closeTeamFormationModal();
-      }
+      tableStore.setFormedTeams(result);
+      router.push('/view-teams');
+      teamFormationStore.closeTeamFormationModal();
+      // }
     } catch (error) {
       console.error(error);
     } finally {
