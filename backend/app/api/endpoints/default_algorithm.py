@@ -17,3 +17,10 @@ async def process_default_team_formation(csv_data: List[List[str]], mapping: Alg
         teams = genetic_team_formation(csv_data, mapping)
 
     return {"teams": teams}
+
+
+@router.post("/custom_algorithm/")
+async def process_custom_team_formation(csv_data: List[List[str]], mapping: AlgorithmDataMapping):
+    teams = []
+
+    return {"teams": teams}
